@@ -1,27 +1,47 @@
+
+const State = {
+    AVAILABLE: 1, // USER DIDN'T CHOOSE IT AS BUSY AND GOOD WEATHER
+    BUSY: 2, // USER CHOOSE IT AS BUSY
+    UNAVAILABLE: 3, // BAD WEATHER
+};
+Object.freeze(State);
+
 var resultView = new Vue({
     el: '#app',
     data: {
+        location: '',
+        rawResults: null,
+        weather: [],
+
+        schedule:{
+            // today
+            "0":[State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE],
+            // tomorrow
+            "1":[State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE],
+            // the day after tomorrow
+            "2":[State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE],
+            "3":[State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE],
+            "4":[State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE],
+            "5":[State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE],
+            "6":[State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE,State.AVAILABLE],
+        },
+
 
     },
     methods: {
+        /**
+         * get the weather forecast data for today and next 6 days
+         * process rawResults and store useful data in weather
+         * @param {*} e 
+         */
         getWeather: function(e) {
             // if (e.keyCode == 13) {
-            //     this.isLoading = true;
-            //     let req_str = "https://itunes.apple.com/search?attribute=allArtistTerm&origin=*&term=" + encodeURI(this.artistName);
+            //     let req_str = "...&term=" + encodeURI(this.artistName);
             //     axios
             //         .get(req_str)
             //         .then(response => (this.rawResults = response))
             //         .then(() => {
             //             this.allResults = [];
-            //             this.sortedResults = [];
-            //             this.genres = [];
-            //             this.realGenres = [];
-            //             console.log("success! print raw results returned by API:");
-            //             console.log(this.rawResults);
-            //             if (this.rawResults.data.resultCount == 0) {
-            //                 alert("No artist was found with the keyword.");
-            //                 return;
-            //             }
             //             let itunesResults = this.rawResults.data.results;
             //             for (let i = 0; i < itunesResults.length; i++) {
             //                 let resultRow = {
@@ -29,13 +49,6 @@ var resultView = new Vue({
             //                     collectionName: "No information provided",
             //                     kind: "No information provided",
             //                     country: "No information provided",
-            //                     trackId: "No information provided",
-            //                     previewUrl: "",
-            //                     genre: "No information provided",
-            //                     trackPrice: 0,
-            //                     imageUrl: "",
-            //                     isPlay: false,
-            //                     trackCensoredName: "No information provided",
             //                 }
             //                 if (itunesResults[i].hasOwnProperty("artistName")) {
             //                     if (!(itunesResults[i].artistName === "")) {
@@ -62,31 +75,6 @@ var resultView = new Vue({
             //                         resultRow.kind = itunesResults[i].kind;
             //                     }
             //                 }
-            //                 if (itunesResults[i].hasOwnProperty("country")) {
-            //                     if (!(itunesResults[i].country === "")) {
-            //                         resultRow.country = itunesResults[i].country;
-            //                     }
-            //                 }
-            //                 if (itunesResults[i].hasOwnProperty("primaryGenreName")) {
-            //                     if (!(itunesResults[i].primaryGenreName === "")) {
-            //                         resultRow.genre = itunesResults[i].primaryGenreName;
-            //                     }
-            //                 }
-            //                 if (itunesResults[i].hasOwnProperty("trackId")) {
-            //                     if (!(itunesResults[i].trackId === "")) {
-            //                         resultRow.trackId = itunesResults[i].trackId;
-            //                     }
-            //                 }
-            //                 if (itunesResults[i].hasOwnProperty('trackPrice')) {
-            //                     resultRow.trackPrice = itunesResults[i].trackPrice;
-            //                 }
-            //                 if (itunesResults[i].hasOwnProperty('artworkUrl100')) {
-            //                     resultRow.imageUrl = itunesResults[i].artworkUrl100;
-            //                 } else if (itunesResults[i].hasOwnProperty('artworkUrl60')) {
-            //                     resultRow.imageUrl = itunesResults[i].artworkUrl60;
-            //                 } else if (itunesResults[i].hasOwnProperty('artworkUrl30')) {
-            //                     resultRow.imageUrl = itunesResults[i].artworkUrl30;
-            //                 }
             //                 if (!this.genres.includes(resultRow.genre)) {
             //                     let obj = {};
             //                     obj["name"] = resultRow.genre;
@@ -102,11 +90,6 @@ var resultView = new Vue({
             //                 this.realGenres[idx]["filterResults"].push(resultRow);
             //             }
             //             this.sortedResults = JSON.parse(JSON.stringify(this.allResults));
-            //             this.totalFound = this.allResults.length;
-            //             console.log("print processed results:");
-            //             console.log(this.sortedResults);
-            //             console.log(this.realGenres);
-            //             this.isLoading = false;
             //         })
             //         .catch(error => {
             //             console.log("error!");
@@ -114,5 +97,13 @@ var resultView = new Vue({
             //         })
             // }
         },
+        /**
+         * onclick handler when user clicks a time cell
+         * modify this.schedule 
+         * 
+         * @param {*} e 
+         */
+        clickCell: function(e) {
+        }
     }
 })
