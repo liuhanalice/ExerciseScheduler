@@ -9,9 +9,10 @@ Object.freeze(State);
 var resultView = new Vue({
     el: '#app',
     data: {
-        location: '',
+        location: '', // e.g. Ann Arbor, MI
+        locationResults: [], // e.g. places recommendation for Ann Arbor
         rawResults: null,
-        weather: [],
+        weatherResults: [], // e.g. Ann Arbor weather for today and next 6 days
 
         schedule:{
             // today
@@ -30,7 +31,7 @@ var resultView = new Vue({
     },
     methods: {
         /**
-         * get the weather forecast data for today and next 6 days
+         * get the weather forecast data for today and next 6 days from an API
          * process rawResults and store useful data in weather
          * @param {*} e 
          */
@@ -104,6 +105,13 @@ var resultView = new Vue({
          * @param {*} e 
          */
         clickCell: function(e) {
+        },
+        /**
+         * get the location data from an API
+         * process rawResults and store useful data in weather
+         * @param {*} e 
+         */
+        getLocation: function(e) {
         }
     }
 })
