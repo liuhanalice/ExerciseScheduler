@@ -13,6 +13,7 @@ var resultView = new Vue({
         locationResults: [], // e.g. places recommendation for Ann Arbor
         rawResults: null,
         weatherResults: [], // e.g. Ann Arbor weather for today and next 6 days
+        dateArray:[], // e.g.["Nov.17 W","Nov.18 TH","Nov.19 F","Nov.20 SAT","Nov.21 SUN",...]
 
         schedule:{
             // today
@@ -112,6 +113,12 @@ var resultView = new Vue({
          * @param {*} e 
          */
         getLocation: function(e) {
+        },
+        /**
+         * get the dateArray based on today's date
+         * @param {*} e 
+         */
+        getDateArray: function(e) {
         }
     }
 })
