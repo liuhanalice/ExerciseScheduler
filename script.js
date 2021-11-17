@@ -6,14 +6,17 @@ const State = {
 };
 Object.freeze(State);
 
-var resultView = new Vue({
+var scheduler = new Vue({
     el: '#app',
     data: {
         location: '', // e.g. Ann Arbor, MI
         locationResults: [], // e.g. places recommendation for Ann Arbor
-        rawResults: null,
+
+        rawResults: null, // temporary raw results returned from API, maybe useless 
+
         weatherResults: [], // e.g. Ann Arbor weather for today and next 6 days
-        dateArray:[], // e.g.["Nov.17 W","Nov.18 TH","Nov.19 F","Nov.20 SAT","Nov.21 SUN",...]
+
+        dateArray:["Nov.17 W","Nov.18 TH","Nov.19 F","Nov.20 SAT","Nov.21 SUN","Nov.22 M"], // e.g.["Nov.17 W","Nov.18 TH","Nov.19 F","Nov.20 SAT","Nov.21 SUN",...], length = 6
 
         schedule:{
             // today
