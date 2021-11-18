@@ -80,8 +80,10 @@ document.addEventListener('DOMContentLoaded', _ => {
             console.log('Got current location!')
             this.position = pos
           },
-          _ => {
-            alert('Cannot get loation!')
+          err => {
+            let s = `Cannot get loation! ${err.message}`
+            console.log(s)
+            alert(s)
           })
       },
       /**
