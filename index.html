@@ -16,7 +16,7 @@
     crossorigin="anonymous"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios@0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios@0/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -237,9 +237,10 @@
 
     <div>
       <input type="text" v-model.lazy.trim='weatherApiKey' placeholder="Weather API key" style='width:20em'>
-      <button @click='getWeather' class='btn btn-primary'>getWeather</button>
+      <button @click='getWeatherAQ' class='btn btn-primary'>getWeatherAQ</button>
       <div>
-        <pre>{{JSON.stringify(weatherJson,null,2)}}</pre>
+        <pre>{{JSON.stringify(airQualityJson,null,1)}}</pre>
+        <pre>{{JSON.stringify(weatherJson,null,1)}}</pre>
       </div>
     </div>
 
