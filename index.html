@@ -1,193 +1,252 @@
 <!DOCTYPE html>
 <html lang="en-US">
+
 <head>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios@0"></script>
 </head>
+
 <body>
+  <h1>ExerciseScheduler</h1>
 
-<h1>ExerciseScheduler</h1>
-<div id='app'>
+  <div id='app'>
     <div class="table-responsive">
-        <table class="table table-bordered text-center">
-            <thead>
-                <tr class="bg-light-gray">
-                    <th class="text-uppercase">Time
-                    </th>
-                    <th class="text-uppercase">{{dateArray[0]}}</th>
-                    <th class="text-uppercase">{{dateArray[1]}}</th>
-                    <th class="text-uppercase">{{dateArray[2]}}</th>
-                    <th class="text-uppercase">{{dateArray[3]}}</th>
-                    <th class="text-uppercase">{{dateArray[4]}}</th>
-                    <th class="text-uppercase">{{dateArray[5]}}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="align-middle">8-10am</td>
-                    <td>
-                        <span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
+      <table class="table table-bordered text-center">
+        <thead>
+          <tr class="bg-light-gray">
+            <th class="text-uppercase">Time
+            </th>
+            <th class="text-uppercase">{{dateArray[0]}}</th>
+            <th class="text-uppercase">{{dateArray[1]}}</th>
+            <th class="text-uppercase">{{dateArray[2]}}</th>
+            <th class="text-uppercase">{{dateArray[3]}}</th>
+            <th class="text-uppercase">{{dateArray[4]}}</th>
+            <th class="text-uppercase">{{dateArray[5]}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="align-middle">8-10am</td>
+            <td>
+              <span
+                class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
 
-                    <td>
-                        <span class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                </tr>
+            <td>
+              <span
+                class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+          </tr>
 
-                <tr>
-                    <td class="align-middle">10-12pm</td>
-                    <td>
-                        <span class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td class="bg-light-gray">
+          <tr>
+            <td class="align-middle">10-12pm</td>
+            <td>
+              <span
+                class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td class="bg-light-gray">
 
-                    </td>
-                    <td>
-                        <span class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td class="bg-light-gray">
+            </td>
+            <td>
+              <span
+                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td class="bg-light-gray">
 
-                    </td>
-                </tr>
+            </td>
+          </tr>
 
-                <tr>
-                    <td class="align-middle">12-2pm</td>
-                    <td>
-                        <span class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                </tr>
+          <tr>
+            <td class="align-middle">12-2pm</td>
+            <td>
+              <span
+                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+          </tr>
 
-                <tr>
-                    <td class="align-middle">2-4pm</td>
-                    <td class="bg-light-gray">
+          <tr>
+            <td class="align-middle">2-4pm</td>
+            <td class="bg-light-gray">
 
-                    </td>
-                    <td>
-                        <span class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td class="bg-light-gray">
+            </td>
+            <td>
+              <span
+                class="bg-purple padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td class="bg-light-gray">
 
-                    </td>
-                    <td>
-                        <span class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                </tr>
+            </td>
+            <td>
+              <span
+                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+          </tr>
 
-                <tr>
-                    <td class="align-middle">4-6pm</td>
-                    <td>
-                        <span class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td class="bg-light-gray">
+          <tr>
+            <td class="align-middle">4-6pm</td>
+            <td>
+              <span
+                class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td class="bg-light-gray">
 
-                    </td>
-                    <td>
-                        <span class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="align-middle">6-8pm</td>
-                    <td>
-                        <span class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td class="bg-light-gray">
+            </td>
+            <td>
+              <span
+                class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="align-middle">6-8pm</td>
+            <td>
+              <span
+                class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td class="bg-light-gray">
 
-                    </td>
-                    <td>
-                        <span class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="align-middle">8-10pm</td>
-                    <td>
-                        <span class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td class="bg-light-gray">
+            </td>
+            <td>
+              <span
+                class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="align-middle">8-10pm</td>
+            <td>
+              <span
+                class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td class="bg-light-gray">
 
-                    </td>
-                    <td>
-                        <span class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                    <td>
-                        <span class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+            </td>
+            <td>
+              <span
+                class="bg-pink padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+            <td>
+              <span
+                class="bg-yellow padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13">Busy</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
+    <div>
+      <button @click='getPosition' class='btn btn-primary'>getPosition</button>
+      <span>lat={{position?.coords?.latitude}} lon={{position?.coords?.longitude}}
+        acc={{position?.coords?.accuracy}}</span>
+    </div>
 
-</div>
+    <div>
+      <input type="text" v-model.lazy.trim='weatherApiKey' placeholder="Weather API key" style='width:20em'>
+      <button @click='getWeather' class='btn btn-primary'>getWeather</button>
+      <div>
+        <pre>{{JSON.stringify(weatherJson,null,2)}}</pre>
+      </div>
+    </div>
 
-<script src="script.js"></script>
+  </div> <!-- #app -->
+
+  <script src="script.js"></script>
 
 </body>
+
 </html>
