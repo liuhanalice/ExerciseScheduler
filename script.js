@@ -104,16 +104,16 @@ document.addEventListener('DOMContentLoaded', _ => {
         }
 
         const coords = pos.coords
+        let url;
 
         // weather
-        axios.get('https://api.openweathermap.org/data/2.5/onecall', {
-          params: {
-            lat: coords.latitude,
-            lon: coords.longitude,
-            appid: this.weatherApiKey,
-            units: 'metric'
-          }
-        }).then(js => {
+        url = new URL('https://api.openweathermap.org/data/2.5/onecall')
+        url.searchParams.set('lat', coords.latitude)
+        url.searchParams.set('lon', coords.longitude)
+        url.searchParams.set('appid', apiKey)
+        url.searchParams.set('units', 'imperial')
+        fetch(url).then(r => r.json()
+        ).then(js => {
           console.log(js)
           this.weatherJson = js
         }).catch(e => {
@@ -122,13 +122,12 @@ document.addEventListener('DOMContentLoaded', _ => {
         })
 
         // air quality
-        axios.get('https://api.openweathermap.org/data/2.5/air_pollution', {
-          params: {
-            lat: coords.latitude,
-            lon: coords.longitude,
-            appid: this.weatherApiKey,
-          }
-        }).then(js => {
+        url = new URL('https://api.openweathermap.org/data/2.5/air_pollution')
+        url.searchParams.set('lat', coords.latitude)
+        url.searchParams.set('lon', coords.longitude)
+        url.searchParams.set('appid', apiKey)
+        fetch(url).then(r => r.json()
+        ).then(js => {
           console.log(js)
           this.airQualityJson = js
         }).catch(e => {
