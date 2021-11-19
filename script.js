@@ -5,49 +5,51 @@ const State = {
 };
 Object.freeze(State);
 
+const data = {
+  location: '', // e.g. Ann Arbor, MI
+  locationResults: [], // e.g. places recommendation for Ann Arbor
+
+  rawResults: null, // temporary raw results returned from API, maybe useless
+
+  weatherResults: [], // e.g. Ann Arbor weather for today and next 6 days
+
+  dateArray: ["Nov.17 W", "Nov.18 TH", "Nov.19 F", "Nov.20 SAT", "Nov.21 SUN", "Nov.22 M"], // e.g.["Nov.17 W","Nov.18 TH","Nov.19 F","Nov.20 SAT","Nov.21 SUN",...], length = 6
+
+  schedule: {
+    // today
+    "0": [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
+    // tomorrow
+    "1": [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
+    // the day after tomorrow
+    "2": [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
+    "3": [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
+    "4": [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
+    "5": [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
+    "6": [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
+  },
+
+
+  /** @type {GeolocationPosition?} */
+  position: null,
+
+  /** @type {String?} */
+  weatherApiKey: null,
+
+  /** @type {Object?} */
+  weatherJson: null,
+
+  /** @type {Object?} */
+  airQualityJson: null,
+}
+
 document.addEventListener('DOMContentLoaded', _ => {
   var app = new Vue({
     el: '#app',
-    data: {
-      location: '', // e.g. Ann Arbor, MI
-      locationResults: [], // e.g. places recommendation for Ann Arbor
-
-      rawResults: null, // temporary raw results returned from API, maybe useless
-
-      weatherResults: [], // e.g. Ann Arbor weather for today and next 6 days
-
-      dateArray: ["Nov.17 W", "Nov.18 TH", "Nov.19 F", "Nov.20 SAT", "Nov.21 SUN", "Nov.22 M"], // e.g.["Nov.17 W","Nov.18 TH","Nov.19 F","Nov.20 SAT","Nov.21 SUN",...], length = 6
-
-      schedule: {
-        // today
-        "0": [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
-        // tomorrow
-        "1": [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
-        // the day after tomorrow
-        "2": [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
-        "3": [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
-        "4": [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
-        "5": [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
-        "6": [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
-      },
-
-
-      /** @type {GeolocationPosition?} */
-      position: null,
-
-      /** @type {String?} */
-      weatherApiKey: null,
-
-      /** @type {Object?} */
-      weatherJson: null,
-
-      /** @type {Object?} */
-      airQualityJson: null,
-    },
+    data,
     methods: {
       /**
        * onclick handler when user clicks a time cell
-       * modify this.schedule
+       * modify data.schedule
        *
        * @param {PointerEvent} e
        */
@@ -78,7 +80,7 @@ document.addEventListener('DOMContentLoaded', _ => {
         navigator.geolocation.getCurrentPosition(
           pos => {
             console.log('Got current location!')
-            this.position = pos
+            data.position = pos
           },
           err => {
             let s = `Cannot get loation! ${err.message}`
@@ -92,14 +94,14 @@ document.addEventListener('DOMContentLoaded', _ => {
        */
       getWeatherAQ(e) {
         /** @type {GeolocationPosition} */
-        const pos = this.position
+        const pos = data.position
         if (pos == null) {
           alert('Get position first!')
           return
         }
 
         /** @type {String} */
-        const apiKey = this.weatherApiKey
+        const apiKey = data.weatherApiKey
         if (apiKey == null || apiKey.length == 0) {
           alert('Type Weather API key!')
           return
@@ -117,7 +119,7 @@ document.addEventListener('DOMContentLoaded', _ => {
         fetch(url).then(r => r.json()
         ).then(js => {
           console.log(js)
-          this.weatherJson = js
+          data.weatherJson = js
         }).catch(e => {
           alert(e)
           throw e
@@ -131,7 +133,7 @@ document.addEventListener('DOMContentLoaded', _ => {
         fetch(url).then(r => r.json()
         ).then(js => {
           console.log(js)
-          this.airQualityJson = js
+          data.airQualityJson = js
         }).catch(e => {
           alert(e)
           throw e
