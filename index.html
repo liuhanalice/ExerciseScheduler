@@ -31,8 +31,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-link" :class='{active:idx==navBarSelected}' v-for='tb,idx of navBarTextsBadges'
-              href="#">{{tb[0]}}
+            <a class="nav-link" :class='{active:idx==navBarSelected}' v-for='x,idx of navBarTextsBadges'
+              :href="x[1]?x[1]:'#'">{{x[0]}}
               <!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 {{tb[1]}}
                 <span class="visually-hidden">unread messages</span>
@@ -49,7 +49,7 @@
 
 <script>
   const data = {
-    navBarTextsBadges: [['Home', null], ['Schedule', '99+'], ['Calendar', '3'], ['Explore', '10'], ['My Profile', null]],
+    navBarTextsBadges: [['Home', null], ['Schedule', null], ['Calendar', 'calendar.html'], ['Explore', null], ['My Profile', null]],
     navBarSelected: 0,
   }
   document.addEventListener('DOMContentLoaded', _ => {
