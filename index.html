@@ -47,8 +47,11 @@
 
 </body>
 
-<script>
+<script>  // @ts-check
+  "use strict"
+
   const data = {
+    /** @type {([string,string|null])[]} */
     navBarTextsBadges: [['Home', null], ['Schedule', null], ['Calendar', 'calendar.html'], ['Explore', null], ['My Profile', null]],
     navBarSelected: 0,
   }

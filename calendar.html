@@ -244,13 +244,14 @@
 
 </body>
 
-<script>
-  const State = {
+<script> // @ts-check
+  "use strict"
+
+  const State = Object.freeze({
     AVAILABLE: 1, // USER DIDN'T CHOOSE IT AS BUSY AND GOOD WEATHER
     BUSY: 2, // USER CHOOSE IT AS BUSY
     UNAVAILABLE: 3, // BAD WEATHER
-  };
-  Object.freeze(State);
+  })
 
   const data = {
     location: '', // e.g. Ann Arbor, MI
@@ -359,11 +360,11 @@
 
           // weather
           url = new URL('https://api.openweathermap.org/data/2.5/onecall')
-          url.searchParams.set('lat', coords.latitude)
-          url.searchParams.set('lon', coords.longitude)
+          url.searchParams.set('lat', coords.latitude.toString())
+          url.searchParams.set('lon', coords.longitude.toString())
           url.searchParams.set('appid', apiKey)
           url.searchParams.set('units', 'imperial')
-          fetch(url).then(r => r.json()
+          fetch(url.toString()).then(r => r.json()
           ).then(js => {
             console.log(js)
             data.weatherJson = js
@@ -374,10 +375,10 @@
 
           // air quality
           url = new URL('https://api.openweathermap.org/data/2.5/air_pollution')
-          url.searchParams.set('lat', coords.latitude)
-          url.searchParams.set('lon', coords.longitude)
+          url.searchParams.set('lat', coords.latitude.toString())
+          url.searchParams.set('lon', coords.longitude.toString())
           url.searchParams.set('appid', apiKey)
-          fetch(url).then(r => r.json()
+          fetch(url.toString()).then(r => r.json()
           ).then(js => {
             console.log(js)
             data.airQualityJson = js
