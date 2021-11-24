@@ -44,7 +44,7 @@
     </nav>
 
     <div class="table-responsive">
-      <table class="table table-bordered text-center">
+      <table class="table table-bordered text-center" style="width:80%">
         <thead>
           <tr class="bg-light-gray">
             <th class="text-uppercase">Time
@@ -57,51 +57,51 @@
             <th class="text-uppercase">{{dateArray[5]}}</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody >
           <tr>
             <td class="align-middle">8-10am</td>
-            <td v-for="state,dayIdx of schedule[0]">
-              <span :class="free_class" v-on:click="clickCell(dayIdx,0,$event)">Free</span>
+            <td width="14%" v-for="state,dayIdx of schedule[0]">
+              <button type="button" :class="free_class" style="width:100%" v-on:click="clickCell(dayIdx,0,$event)">Free</button>
             </td>
           </tr>
 
           <tr>
             <td class="align-middle">10-12pm</td>
-            <td v-for="state,dayIdx of schedule[1]">
-              <span :class="free_class" v-on:click="clickCell(dayIdx,1,$event)">Free</span>
+            <td width="14%" v-for="state,dayIdx of schedule[1]">
+              <button type="button" :class="free_class" style="width:100%" v-on:click="clickCell(dayIdx,1,$event)">Free</button>
             </td>
           </tr>
 
           <tr>
             <td class="align-middle">12-2pm</td>
-            <td v-for="state,dayIdx of schedule[2]">
-              <span :class="free_class" v-on:click="clickCell(dayIdx,2,$event)">Free</span>
+            <td width="14%" v-for="state,dayIdx of schedule[2]">
+              <button type="button" :class="free_class" style="width:100%" v-on:click="clickCell(dayIdx,2,$event)">Free</button>
             </td>
           </tr>
 
           <tr>
             <td class="align-middle">2-4pm</td>
-            <td v-for="state,dayIdx of schedule[3]">
-              <span :class="free_class" v-on:click="clickCell(dayIdx,3,$event)">Free</span>
+            <td width="14%" v-for="state,dayIdx of schedule[3]">
+              <button type="button" :class="free_class" style="width:100%" v-on:click="clickCell(dayIdx,3,$event)">Free</button>
             </td>
           </tr>
 
           <tr>
             <td class="align-middle">4-6pm</td>
-            <td v-for="state,dayIdx of schedule[4]">
-              <span :class="free_class" v-on:click="clickCell(dayIdx,4,$event)">Free</span>
+            <td width="14%" v-for="state,dayIdx of schedule[4]">
+              <button type="button" :class="free_class" style="width:100%" v-on:click="clickCell(dayIdx,4,$event)">Free</button>
             </td>
           </tr>
           <tr>
             <td class="align-middle">6-8pm</td>
-            <td v-for="state,dayIdx of schedule[5]">
-              <span :class="free_class" v-on:click="clickCell(dayIdx,5,$event)">Free</span>
+            <td width="14%" v-for="state,dayIdx of schedule[5]">
+              <button type="button" :class="free_class" style="width:100%" v-on:click="clickCell(dayIdx,5,$event)">Free</button>
             </td>
           </tr>
           <tr>
             <td class="align-middle">8-10pm</td>
-            <td v-for="state,dayIdx of schedule[6]">
-              <span :class="free_class" v-on:click="clickCell(dayIdx,6,$event)">Free</span>
+            <td width="14%" v-for="state,dayIdx of schedule[6]">
+              <button type="button" :class="free_class" style="width:100%" v-on:click="clickCell(dayIdx,6,$event)">Free</button>
             </td>
           </tr>
         </tbody>
@@ -138,8 +138,10 @@
 
   const data = {
 
-    busy_class: 'bg-lightred padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13',
-    free_class: 'bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13',
+    busy_class: "btn btn-warning",
+    // free_class: 'bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13',
+    // free_class: 'btn btn-success',
+    free_class:"btn btn-success",
 
     navBarTextsBadges: [['Home', 'index.html'], ['Schedule', null], ['Calendar', 'calendar.html'], ['Explore', null], ['My Profile', null]],
     navBarSelected: 2,
