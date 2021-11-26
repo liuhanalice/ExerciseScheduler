@@ -102,6 +102,11 @@ body{
     font-size: 13px;
 }
 
+#navbar{
+    font-family: 'Josefin Sans';
+    font-size: 50px;
+}
+
 .table-bordered td, .table-bordered th {
     border: 1px solid #dee2e6;
 }

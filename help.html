@@ -3,6 +3,7 @@
 
 <head>
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href='https://fonts.googleapis.com/css?family=Josefin Sans' rel='stylesheet'>
 
   <link href="style.css" rel="stylesheet">
 
@@ -19,11 +20,11 @@
 
   <div id='app'>
 
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style='background-color:#001d64'>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark"
+      style='background-color:#001d64;font-family: "Josefin Sans";'>
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
           <img src="assets/logo.png" class="d-inline-block" style='object-fit:cover;width:8em;height:30px' alt="">
-          UI-Noobs
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
           aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,16 +35,19 @@
             <a class="nav-link" :class='{active:idx==navBarSelected}' v-for='x,idx of navBarTextsBadges'
               :href="x[1]?x[1]:'#'">{{x[0]}}
             </a>
+            <a class="nav-link" target="_blank" href='https://github.com/epigone707/ExerciseScheduler'>Github
+            </a>
+
           </div>
         </div>
       </div>
     </nav>
     <div style='margin-top:300px'>
-        Help doc:
-        Mark your Calendar with different time slot marker
+      Help doc:
+      Mark your Calendar with different time slot marker
 
     </div>
-    
+
 
   </div> <!-- #app -->
 
@@ -54,8 +58,8 @@
 
   const data = {
     /** @type {([string,string|null])[]} */
-    navBarTextsBadges: [['Home',  'index.html'], ['Schedule', null], ['Calendar', 'calendar.html'], ['Help', 'help.html'], ['My Profile', null]],
-    navBarSelected: 3,
+    navBarTextsBadges: [['Home', 'index.html'], ['Schedule', 'schedule.html'], ['Help', 'help.html'],],
+    navBarSelected: 2,
   }
   document.addEventListener('DOMContentLoaded', _ => {
     const app = new Vue({

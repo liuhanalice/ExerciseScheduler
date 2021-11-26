@@ -3,6 +3,7 @@
 
 <head>
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href='https://fonts.googleapis.com/css?family=Josefin Sans' rel='stylesheet'>
 
   <link href="style.css" rel="stylesheet">
 
@@ -19,11 +20,11 @@
 
 
   <div id='app'>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style='background-color:#001d64'>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark"
+      style='background-color:#001d64;font-family: "Josefin Sans";'>
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
           <img src="assets/logo.png" class="d-inline-block" style='object-fit:cover;width:8em;height:30px' alt="">
-          UI-Noobs
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
           aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,11 +34,10 @@
           <div class="navbar-nav">
             <a class="nav-link" :class='{active:idx==navBarSelected}' v-for='x,idx of navBarTextsBadges'
               :href="x[1]?x[1]:'#'">{{x[0]}}
-              <!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {{tb[1]}}
-                <span class="visually-hidden">unread messages</span>
-              </span> -->
             </a>
+            <a class="nav-link" target="_blank" href='https://github.com/epigone707/ExerciseScheduler'>Github
+            </a>
+
           </div>
         </div>
       </div>
@@ -57,51 +57,58 @@
             <th class="text-uppercase">{{dateArray[5]}}</th>
           </tr>
         </thead>
-        <tbody >
+        <tbody>
           <tr>
             <td class="align-middle">8-10am</td>
             <td width="14%" v-for="state,dayIdx of schedule[0]">
-              <button type="button" :class="free_class" style="width:100%" v-on:click="clickCell(dayIdx,0,$event)">Free</button>
+              <button type="button" :class="free_class" style="width:100%"
+                v-on:click="clickCell(dayIdx,0,$event)">Free</button>
             </td>
           </tr>
 
           <tr>
             <td class="align-middle">10-12pm</td>
             <td width="14%" v-for="state,dayIdx of schedule[1]">
-              <button type="button" :class="free_class" style="width:100%" v-on:click="clickCell(dayIdx,1,$event)">Free</button>
+              <button type="button" :class="free_class" style="width:100%"
+                v-on:click="clickCell(dayIdx,1,$event)">Free</button>
             </td>
           </tr>
 
           <tr>
             <td class="align-middle">12-2pm</td>
             <td width="14%" v-for="state,dayIdx of schedule[2]">
-              <button type="button" :class="free_class" style="width:100%" v-on:click="clickCell(dayIdx,2,$event)">Free</button>
+              <button type="button" :class="free_class" style="width:100%"
+                v-on:click="clickCell(dayIdx,2,$event)">Free</button>
             </td>
           </tr>
 
           <tr>
             <td class="align-middle">2-4pm</td>
             <td width="14%" v-for="state,dayIdx of schedule[3]">
-              <button type="button" :class="free_class" style="width:100%" v-on:click="clickCell(dayIdx,3,$event)">Free</button>
+              <button type="button" :class="free_class" style="width:100%"
+                v-on:click="clickCell(dayIdx,3,$event)">Free</button>
             </td>
           </tr>
 
           <tr>
             <td class="align-middle">4-6pm</td>
             <td width="14%" v-for="state,dayIdx of schedule[4]">
-              <button type="button" :class="free_class" style="width:100%" v-on:click="clickCell(dayIdx,4,$event)">Free</button>
+              <button type="button" :class="free_class" style="width:100%"
+                v-on:click="clickCell(dayIdx,4,$event)">Free</button>
             </td>
           </tr>
           <tr>
             <td class="align-middle">6-8pm</td>
             <td width="14%" v-for="state,dayIdx of schedule[5]">
-              <button type="button" :class="free_class" style="width:100%" v-on:click="clickCell(dayIdx,5,$event)">Free</button>
+              <button type="button" :class="free_class" style="width:100%"
+                v-on:click="clickCell(dayIdx,5,$event)">Free</button>
             </td>
           </tr>
           <tr>
             <td class="align-middle">8-10pm</td>
             <td width="14%" v-for="state,dayIdx of schedule[6]">
-              <button type="button" :class="free_class" style="width:100%" v-on:click="clickCell(dayIdx,6,$event)">Free</button>
+              <button type="button" :class="free_class" style="width:100%"
+                v-on:click="clickCell(dayIdx,6,$event)">Free</button>
             </td>
           </tr>
         </tbody>
@@ -141,11 +148,10 @@
     busy_class: "btn btn-warning",
     // free_class: 'bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13',
     // free_class: 'btn btn-success',
-    free_class:"btn btn-success",
+    free_class: "btn btn-success",
 
-    navBarTextsBadges: [['Home',  'index.html'], ['Schedule', null], ['Calendar', 'calendar.html'], ['Help', 'help.html'], ['My Profile', null]],
-    
-    navBarSelected: 2,
+    navBarTextsBadges: [['Home', 'index.html'], ['Schedule', 'schedule.html'], ['Help', 'help.html'],],
+    navBarSelected: 1,
 
     location: '', // e.g. Ann Arbor, MI
     locationResults: [], // e.g. places recommendation for Ann Arbor
