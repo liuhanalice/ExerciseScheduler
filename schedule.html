@@ -42,78 +42,88 @@
         </div>
       </div>
     </nav>
+  <div class="container">
 
-    <div class="table-responsive">
-      <table class="table table-bordered text-center" style="width:80%">
-        <thead>
-          <tr class="bg-light-gray">
-            <th class="text-uppercase">Time
-            </th>
-            <th class="text-uppercase">{{dateArray[0]}}</th>
-            <th class="text-uppercase">{{dateArray[1]}}</th>
-            <th class="text-uppercase">{{dateArray[2]}}</th>
-            <th class="text-uppercase">{{dateArray[3]}}</th>
-            <th class="text-uppercase">{{dateArray[4]}}</th>
-            <th class="text-uppercase">{{dateArray[5]}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="align-middle">8-10am</td>
-            <td width="14%" v-for="state,dayIdx of schedule[0]">
-              <button type="button" :class="free_class" style="width:100%"
-                v-on:click="clickCell(dayIdx,0,$event)">Free</button>
-            </td>
-          </tr>
+    <div class="row align-items-end d-flex justify-content-center">
+      <div class="col-11">
+        <div class="table-responsive d-flex justify-content-start">
+          <table class="table table-bordered text-center" style="width:80%">
+            <thead>
+              <tr class="bg-light-gray">
+                <th class="text-uppercase">Time
+                </th>
+                <th class="text-uppercase">{{dateArray[0]}}</th>
+                <th class="text-uppercase">{{dateArray[1]}}</th>
+                <th class="text-uppercase">{{dateArray[2]}}</th>
+                <th class="text-uppercase">{{dateArray[3]}}</th>
+                <th class="text-uppercase">{{dateArray[4]}}</th>
+                <th class="text-uppercase">{{dateArray[5]}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="align-middle">8-10am</td>
+                <td width="14%" v-for="state,dayIdx of schedule[0]">
+                  <button type="button" :class="free_class" style="width:100%"
+                    v-on:click="clickCell(dayIdx,0,$event)">Free</button>
+                </td>
+              </tr>
 
-          <tr>
-            <td class="align-middle">10-12pm</td>
-            <td width="14%" v-for="state,dayIdx of schedule[1]">
-              <button type="button" :class="free_class" style="width:100%"
-                v-on:click="clickCell(dayIdx,1,$event)">Free</button>
-            </td>
-          </tr>
+              <tr>
+                <td class="align-middle">10-12pm</td>
+                <td width="14%" v-for="state,dayIdx of schedule[1]">
+                  <button type="button" :class="free_class" style="width:100%"
+                    v-on:click="clickCell(dayIdx,1,$event)">Free</button>
+                </td>
+              </tr>
 
-          <tr>
-            <td class="align-middle">12-2pm</td>
-            <td width="14%" v-for="state,dayIdx of schedule[2]">
-              <button type="button" :class="free_class" style="width:100%"
-                v-on:click="clickCell(dayIdx,2,$event)">Free</button>
-            </td>
-          </tr>
+              <tr>
+                <td class="align-middle">12-2pm</td>
+                <td width="14%" v-for="state,dayIdx of schedule[2]">
+                  <button type="button" :class="free_class" style="width:100%"
+                    v-on:click="clickCell(dayIdx,2,$event)">Free</button>
+                </td>
+              </tr>
 
-          <tr>
-            <td class="align-middle">2-4pm</td>
-            <td width="14%" v-for="state,dayIdx of schedule[3]">
-              <button type="button" :class="free_class" style="width:100%"
-                v-on:click="clickCell(dayIdx,3,$event)">Free</button>
-            </td>
-          </tr>
+              <tr>
+                <td class="align-middle">2-4pm</td>
+                <td width="14%" v-for="state,dayIdx of schedule[3]">
+                  <button type="button" :class="free_class" style="width:100%"
+                    v-on:click="clickCell(dayIdx,3,$event)">Free</button>
+                </td>
+              </tr>
 
-          <tr>
-            <td class="align-middle">4-6pm</td>
-            <td width="14%" v-for="state,dayIdx of schedule[4]">
-              <button type="button" :class="free_class" style="width:100%"
-                v-on:click="clickCell(dayIdx,4,$event)">Free</button>
-            </td>
-          </tr>
-          <tr>
-            <td class="align-middle">6-8pm</td>
-            <td width="14%" v-for="state,dayIdx of schedule[5]">
-              <button type="button" :class="free_class" style="width:100%"
-                v-on:click="clickCell(dayIdx,5,$event)">Free</button>
-            </td>
-          </tr>
-          <tr>
-            <td class="align-middle">8-10pm</td>
-            <td width="14%" v-for="state,dayIdx of schedule[6]">
-              <button type="button" :class="free_class" style="width:100%"
-                v-on:click="clickCell(dayIdx,6,$event)">Free</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              <tr>
+                <td class="align-middle">4-6pm</td>
+                <td width="14%" v-for="state,dayIdx of schedule[4]">
+                  <button type="button" :class="free_class" style="width:100%"
+                    v-on:click="clickCell(dayIdx,4,$event)">Free</button>
+                </td>
+              </tr>
+              <tr>
+                <td class="align-middle">6-8pm</td>
+                <td width="14%" v-for="state,dayIdx of schedule[5]">
+                  <button type="button" :class="free_class" style="width:100%"
+                    v-on:click="clickCell(dayIdx,5,$event)">Free</button>
+                </td>
+              </tr>
+              <tr>
+                <td class="align-middle">8-10pm</td>
+                <td width="14%" v-for="state,dayIdx of schedule[6]">
+                  <button type="button" :class="free_class" style="width:100%"
+                    v-on:click="clickCell(dayIdx,6,$event)">Free</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div class="col  d-flex justify-content-start">
+        <button type="button" class="btn  btn-outline-success" style="margin-bottom:20px;">Submit and Next</button>
+      </div>
     </div>
+  </div>
 
     <div>
       <button @click='getPosition' class='btn btn-primary'>getPosition</button>
@@ -143,8 +153,17 @@
     UNAVAILABLE: 3, // BAD WEATHER
   })
 
-  const data = {
+  function cellInfo(date,time,state) {
+     this.date = date; // Date(), e.g. Sun Mar 13 2022 16:53:03 GMT-0400
+     this.time = time; // int: starting time slot time; e.g. 8-10pm : 20
+     this.state = state; // State; e.g. AVALIABLE
+     this.getDate = function(){return date};
+     this.getTime = function(){return time;}
+     this.getState = function(){return state};
+    }
 
+  const data = {
+    today: null,
     busy_class: "btn btn-warning",
     // free_class: 'bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13',
     // free_class: 'btn btn-success',
@@ -160,22 +179,24 @@
 
     weatherResults: [], // e.g. Ann Arbor weather for today and next 6 days
 
-    dateArray: ["Nov.17 W", "Nov.18 TH", "Nov.19 F", "Nov.20 SAT", "Nov.21 SUN", "Nov.22 M"],
+    dateArray: ["Nov.17 W", "Nov.18 TH", "Nov.19 F", "Nov.20 SAT", "Nov.21 SUN", "Nov.22 M"], // will fetch current date when VUE created() called
 
-    schedule: [
+    // schedule: [
 
-      //8-10am
-      [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
-      //10-12pm
-      [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
-      [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
-      [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
-      [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
-      [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
-      [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
+    //   //8-10am
+    //   [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
+    //   //10-12pm
+    //   [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
+    //   [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
+    //   [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
+    //   [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
+    //   [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
+    //   [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
+    // ],
 
-    ],
-
+    schedule: [],
+    
+    avaliableTimeArray:[],
 
     /** @type {GeolocationPosition?} */
     position: null,
@@ -196,6 +217,26 @@
       data,
       methods: {
         /**
+         * generate schedule cells, each cell store cellInfo {date, time, availability} 
+         * (see function cellInfo above)
+         * VUE created() call
+        */
+        genCell: function(){
+          var timeHorizon = [];
+          var curdate,curCell;
+          for(var t=0; t<7; t++){
+            timeHorizon = [];
+            curdate = this.today;
+            for(var d=0; d<6; d++){
+              if(d !=0){ curdate = this.addDate(curdate,1);}
+              //console.log(curdate);
+              curCell = new cellInfo(curdate,8+2*t,State.AVAILABLE);
+              timeHorizon.push(curCell);
+            }
+            this.schedule.push(timeHorizon);
+          }
+        },
+        /**
          * onclick handler when user clicks a time cell
          * modify data.schedule
          *
@@ -207,16 +248,42 @@
             console.log("free");
             $(clickedElement).text("Busy");
             $(clickedElement).attr('class', data.busy_class);
-            data.schedule[time][day] = State.BUSY;
+            data.schedule[time][day].state = State.BUSY;
           } else {
             console.log("busy");
             $(clickedElement).text("Free");
             $(clickedElement).attr('class', data.free_class);
-            data.schedule[time][day] = State.AVAILABLE;
+            data.schedule[time][day].state = State.AVAILABLE;
           }
           console.log(data.schedule);
         },
         /**
+        * Helper Method for set Date, add Date
+        */
+       addDate: function(date,n){
+        var newdate =new Date(date);
+        newdate.setDate(date.getDate() + n);
+        return newdate;
+       },
+        /**
+         * set the date for 5 coming days
+         */
+       setDate: function(){
+        const months = ["Jan.", "Feb.", "Mar.", "Apr.", "May.", "Jun.", "Jul.", "Aug.","Sept.","Oct.","Nov.","Dec."];
+        const weekday = [ "Sun","Mon", "Tue", "Wed", "Thu", "Fri","Sat"];
+        var today = new Date();
+        var dd,mm,day,targetDate;
+        for(var i=0; i<6;i++){
+          targetDate = this.addDate(today,i);
+          dd = targetDate.getDate();
+          mm = months[targetDate.getMonth()];
+          day = weekday[targetDate.getDay()];
+          this.dateArray[i] = mm+" "+ dd+" "+day;
+        }
+       },
+       
+        /**
+         * 
          * get the dateArray based on today's date
          * @param {PointerEvent} e
          */
@@ -295,6 +362,11 @@
 
         }
       }
+   ,created(){
+     this.today = new Date();
+     this.setDate();
+     this.genCell();
+   } 
     })
 
 
