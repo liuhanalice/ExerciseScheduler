@@ -12,6 +12,7 @@ Team: UI-Noobs
 
 ## References
 - https://www.bootdey.com/snippets/view/time-table#preview
+- https://www.w3schools.com/howto/howto_js_slideshow.asp
 
 ## Source
 - <a href="https://thefatkidinside.com/indoor-exercise-vs-outdoor-exercise/">outdoor.jpg</a>
