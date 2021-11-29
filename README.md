@@ -15,4 +15,7 @@ Team: UI-Noobs
 
 ## Source
 - <a href="https://thefatkidinside.com/indoor-exercise-vs-outdoor-exercise/">outdoor.jpg</a>
+- <a href="http://www.kcchampionperformance.com/news/2016/10/3/tips-for-outdoor-exercise-during-the-fall">img_1.jpg</a>
+- <a href="https://www.nbcnews.com/better/health/what-you-need-know-taking-your-run-outdoors-ncna872491">img_2.jpg</a>
+
 
