@@ -55,8 +55,8 @@
     <div v-if="weatherJson?.daily[0].weather[0]['main'] == 'Snow' || weatherJson?.daily[0].weather[0]['main'] == 'Rain' 
               || weatherJson?.daily[0].weather[0]['main'] == 'Cloudy' " style="text-align: center">
        <iframe v-if="position "
-        width="600"
-        height="450"
+        width="700"
+        height="500"
         style="border:0"
         loading="lazy"
         allowfullscreen
@@ -66,8 +66,8 @@
 
     <div v-else style="text-align: center">
        <iframe v-if="position "
-        width="600"
-        height="450"
+        width="1200px"
+        height="900px"
         style="border:0"
         loading="lazy"
         allowfullscreen
