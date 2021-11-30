@@ -104,8 +104,8 @@
 
   /** @typedef {{
    * humidity:number,
-   * willRain:boolean,
-   * willSnow:boolean,
+   * rain:boolean,
+   * snow:boolean,
    * visibilityKm:number,
    * uv:number
    * }} Weather */
@@ -242,8 +242,8 @@
       day.hour.forEach(x => {
         weather[new Date(x.time).getTime()] = {
           humidity: x.humidity,
-          willRain: !!x.will_it_rain,
-          willSnow: !!x.will_it_snow,
+          rain: !!x.will_it_rain,
+          snow: !!x.will_it_snow,
           visibilityKm: x.vis_km,
           uv: x.uv
         }
