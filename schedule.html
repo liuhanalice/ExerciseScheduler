@@ -2,20 +2,6 @@
 <html lang="en-US">
 
 <head>
-<<<<<<< HEAD
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link href='https://fonts.googleapis.com/css?family=Josefin Sans' rel='stylesheet'>
-
-    <link href="style.css" rel="stylesheet">
-
-    <script defer src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <!-- <script defer src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script> -->
-    <!-- <script defer src="https://cdn.jsdelivr.net/npm/axios@0/dist/axios.min.js"></script> -->
-    <script defer src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.slim.min.js"></script>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.min.js"></script>
-=======
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
   <link href="style.css" rel="stylesheet">
@@ -27,7 +13,6 @@
   <!-- <script defer src="https://cdn.jsdelivr.net/npm/axios@0/dist/axios.min.js"></script> -->
   <script defer src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.slim.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.min.js"></script>
->>>>>>> 5d12d88f23c715051a559bcb856c4f6a00aa879d
 </head>
 
 <body>
@@ -53,80 +38,6 @@
         </div>
       </div>
     </nav>
-<<<<<<< HEAD
-  <div class="container">
-    <div class="row align-items-end d-flex justify-content-center">
-      <div class="col-11">
-        <div class="table-responsive d-flex justify-content-start">
-          <table class="table table-bordered text-center" style="width:80%">
-            <thead>
-              <tr class="bg-light-gray">
-                <th class="text-uppercase">Time</th>
-                <th class="text-uppercase">{{dateArray[0]}}</th>
-                <th class="text-uppercase">{{dateArray[1]}}</th>
-                <th class="text-uppercase">{{dateArray[2]}}</th>
-                <th class="text-uppercase">{{dateArray[3]}}</th>
-                <th class="text-uppercase">{{dateArray[4]}}</th>
-                <th class="text-uppercase">{{dateArray[5]}}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="align-middle">8-10am</td>
-                <td width="14%" v-for="state,dayIdx of schedule[0]">
-                  <button type="button" :class="free_class" style="width:100%"
-                    v-on:click="clickCell(dayIdx,0,$event)">Free</button>
-                </td>
-              </tr>
-
-              <tr>
-                <td class="align-middle">10-12pm</td>
-                <td width="14%" v-for="state,dayIdx of schedule[1]">
-                  <button type="button" :class="free_class" style="width:100%"
-                    v-on:click="clickCell(dayIdx,1,$event)">Free</button>
-                </td>
-              </tr>
-
-              <tr>
-                <td class="align-middle">12-2pm</td>
-                <td width="14%" v-for="state,dayIdx of schedule[2]">
-                  <button type="button" :class="free_class" style="width:100%"
-                    v-on:click="clickCell(dayIdx,2,$event)">Free</button>
-                </td>
-              </tr>
-
-              <tr>
-                <td class="align-middle">2-4pm</td>
-                <td width="14%" v-for="state,dayIdx of schedule[3]">
-                  <button type="button" :class="free_class" style="width:100%"
-                    v-on:click="clickCell(dayIdx,3,$event)">Free</button>
-                </td>
-              </tr>
-
-              <tr>
-                <td class="align-middle">4-6pm</td>
-                <td width="14%" v-for="state,dayIdx of schedule[4]">
-                  <button type="button" :class="free_class" style="width:100%"
-                    v-on:click="clickCell(dayIdx,4,$event)">Free</button>
-                </td>
-              </tr>
-              <tr>
-                <td class="align-middle">6-8pm</td>
-                <td width="14%" v-for="state,dayIdx of schedule[5]">
-                  <button type="button" :class="free_class" style="width:100%"
-                    v-on:click="clickCell(dayIdx,5,$event)">Free</button>
-                </td>
-              </tr>
-              <tr>
-                <td class="align-middle">8-10pm</td>
-                <td width="14%" v-for="state,dayIdx of schedule[6]">
-                  <button type="button" :class="free_class" style="width:100%"
-                    v-on:click="clickCell(dayIdx,6,$event)">Free</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-=======
 
     <div class="container">
       <div class="row align-items-end d-flex justify-content-center">
@@ -154,11 +65,8 @@
 
             </table>
           </div>
->>>>>>> 5d12d88f23c715051a559bcb856c4f6a00aa879d
         </div>
       </div>
-
-     
 
       <div class="col d-flex justify-content-center">
         <button @click='doSchedule' class="btn btn-outline-success" style="margin-bottom:20px;width:10em">{{submitted?"Back":"Submit"}}</button>
@@ -188,13 +96,6 @@
 
 <script> // @ts-check
   "use strict"
-<<<<<<< HEAD
-  const State = Object.freeze({
-    AVAILABLE: 1, // USER DIDN'T CHOOSE IT AS BUSY AND GOOD WEATHER
-    BUSY: 2, // USER CHOOSE IT AS BUSY
-    UNAVAILABLE: 3, // BAD WEATHER
-  })
-=======
 
   // USER DIDN'T CHOOSE IT AS BUSY AND GOOD WEATHER
   const AVAILABLE = 'AVAILABLE'
@@ -202,7 +103,6 @@
   const BUSY = 'BUSY'
   // BAD WEATHER
   const UNAVAILABLE = 'UNAVAILABLE'
->>>>>>> 5d12d88f23c715051a559bcb856c4f6a00aa879d
 
   const SUNNY = 'SUNNY'
   const CLOUDY = 'CLOUDY'
@@ -259,11 +159,8 @@
     //   [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
     //   [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
     // ],
-<<<<<<< HEAD
-=======
 
     /** @type {CellInfo[][]} */
->>>>>>> 5d12d88f23c715051a559bcb856c4f6a00aa879d
     schedule: [],
 
     avaliableTimeArray: [],
