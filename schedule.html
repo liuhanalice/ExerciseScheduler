@@ -166,10 +166,10 @@
     /** @type {String?} */
     aqiApiKey: null,
 
-    /** @type {Object?} */
+    /** @type {{[key:number]:Weather}} */
     weatherInfo: null,
 
-    /** @type {Object?} */
+    /** @type {{[key:number]:AirQuality}} */
     airQualityInfo: null,
   }
 
@@ -256,7 +256,9 @@
     /** @type {{[key:number]:AirQuality}} */
     let aqiInfo = {}
     js.data.forecast.daily.pm25.forEach(x => {
-      aqiInfo[new Date(x.day + ' 0:').getTime()] = x.avg
+      /** @type {number} */
+      let avg = x.avg
+      aqiInfo[new Date(x.day + ' 0:').getTime()] = { avgPM25: avg }
     })
     return aqiInfo
   }
