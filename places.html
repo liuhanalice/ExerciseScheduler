@@ -50,25 +50,25 @@
 
     <button @click='getWeatherInfo'>Get weather info</button>
     {{weatherJson}} -->
-    <div style='margin-top:100px'>Getting recommended places to workout...</div><br><br>
+    <span style='margin-top:100px'>Getting recommended places to workout...<br><br></span>
 
     <div v-if="weatherJson?.daily[0].weather[0]['main'] == 'Snow' || weatherJson?.daily[0].weather[0]['main'] == 'Rain' 
-              || weatherJson?.daily[0].weather[0]['main'] == 'Cloudy' " style="text-align: center">
+              || weatherJson?.daily[0].weather[0]['main'] == 'Cloudy' " style="text-align: center;width:100%;height:90vh;">
        <iframe v-if="position "
-        width="600"
-        height="450"
-        style="border:0"
+        width="100%"
+        height="90vh"
+        style="border:0;width:100%;height:90vh"
         loading="lazy"
         allowfullscreen
         v-bind:src=" 'https://www.google.com/maps/embed/v1/place?key=AIzaSyAobVQjbBRXfConurRuTjtv4YSfehuepug&q=gym&center=' + position?.coords?.latitude + ',' + position?.coords?.longitude ">
       </iframe>
     </div>
 
-    <div v-else style="text-align: center">
+    <div v-else style="text-align: center;width:100%;height:90vh">
        <iframe v-if="position "
-        width="600"
-        height="450"
-        style="border:0"
+        width="100%"
+        height="90vh"
+        style="border:0;width:100%;height:90vh"
         loading="lazy"
         allowfullscreen
         v-bind:src=" 'https://www.google.com/maps/embed/v1/place?key=AIzaSyAobVQjbBRXfConurRuTjtv4YSfehuepug&q=park&center=' + position?.coords?.latitude + ',' + position?.coords?.longitude ">
