@@ -53,11 +53,12 @@
               </thead>
 
               <tbody>
-                <tr v-for='schedule,schIdx of schedule'>
+                <tr v-for='sch,schIdx of schedule'>
                   <td class="align-middle">{{`${8+2*schIdx}:00-${10+2*schIdx}:00`}}</td>
-                  <td width="14%" v-for="state,dayIdx of schedule">
-                    <button type="button" :class="free_class" style="width:100%"
-                      v-on:click="clickCell(dayIdx,schIdx,$event)">Free</button>
+                  <td width="14%" v-for="cell,dayIdx of sch">
+                    <button type="button" :class="cell.state == AVAILABLE?free_class:busy_class" style="width:100%"
+                      v-on:click="!submitted?clickCell(cell):clickCellAfterSubmit(dayIdx,schIdx,$event)"
+                      >{{!submitted?(cell.state==AVAILABLE?"Free":"Busy"):"TODO"}}</button>
                   </td>
                 </tr>
               </tbody>
@@ -67,12 +68,12 @@
         </div>
       </div>
 
-      <div class="col d-flex justify-content-start">
-        <button @click='doSchedule' class="btn btn-outline-success" style="margin-bottom:20px;">Submit and Next</button>
+      <div class="col d-flex justify-content-center">
+        <button @click='doSchedule' class="btn btn-outline-success" style="margin-bottom:20px;width:10em">{{submitted?"Back":"Submit"}}</button>
       </div>
     </div>
 
-    <div>
+    <!-- <div>
       <button @click='getPosition' class='btn btn-primary'>getPosition</button>
       <span>lat={{coord?.lat}} lon={{coord?.lon}}</span>
     </div>
@@ -83,7 +84,7 @@
         <pre>{{JSON.stringify(airQualityInfo,null,2)}}</pre>
         <pre>{{JSON.stringify(weatherInfo,null,2)}}</pre>
       </div>
-    </div>
+    </div> -->
 
   </div> <!-- #app -->
 
@@ -129,6 +130,9 @@
   todayDateBase.setHours(0, 0, 0, 0)
 
   const data = {
+    AVAILABLE,
+    BUSY,
+    UNAVAILABLE,
     /** @type {Date} */
     todayDateBase,
     busy_class: "btn btn-warning",
@@ -172,6 +176,10 @@
 
     /** @type {{[key:number]:AirQuality}} */
     airQualityInfo: null,
+    
+    /** @type {Boolean} */
+    submitted: false,
+
   }
 
   let getWeatherApiKey = () => fetch('key-weather.txt').then(r => r.text()).then(r => r.trim())
@@ -279,22 +287,22 @@
      * onclick handler when user clicks a time cell
      * modify data.schedule
      *
+     * @param {CellInfo} cell
+     */
+    clickCell: function (cell) {
+      cell.state = cell.state==AVAILABLE?BUSY:AVAILABLE
+    },
+     /**
+     * onclick handler when user clicks a time cell after submit
+     * modify data.schedule
+     *
      * @param {PointerEvent} e
      */
-    clickCell: function (day, time, e) {
-      let clickedElement = e.target;
-      if ($(clickedElement).text() == "Free") {
-        // console.log("free");
-        $(clickedElement).text("Busy");
-        $(clickedElement).attr('class', data.busy_class);
-        data.schedule[time][day].state = BUSY;
-      } else {
-        // console.log("busy");
-        $(clickedElement).text("Free");
-        $(clickedElement).attr('class', data.free_class);
-        data.schedule[time][day].state = AVAILABLE;
-      }
-      // console.log(data.schedule);
+    clickCellAfterSubmit: function (day, time,e) {
+      console.log('clickCellAfterSubmit');
+      // let clickedElement = e.target;
+      // $(clickedElement).text("");
+
     },
     getPosition() {
       return new Promise((y, n) => {
@@ -381,6 +389,7 @@
       })
     },
     doSchedule() {
+      data.submitted = !data.submitted;
       console.log('You clicked Submit!');
 
     }
