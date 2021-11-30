@@ -40,8 +40,8 @@
     </nav>
 
     <div class="container">
-      <div class="row align-items-end d-flex justify-content-center">
-        <div class="col-11">
+      <div class="row align-items-center d-flex justify-content-center">
+        <div class="col-10">
           <div class="table-responsive d-flex justify-content-start">
             <table class="table table-bordered text-center">
 
@@ -65,6 +65,14 @@
 
             </table>
           </div>
+
+         
+        </div> 
+        <div class="col" v-if="submitted" style="margin:20px 0">
+         <div id="legend_highly_recommend" class='d-flex align-items-center justify-content-center'>Strongly Recommended</div>
+         <div id="legend_recommend" class='d-flex align-items-center justify-content-center'>Recommended</div>
+         <div id="legend_not_recommend" class='d-flex align-items-center justify-content-center'>Not Recommended</div>
+         <div id="legend_highly_not_recommend" class='d-flex align-items-center justify-content-center'>Strongly not Recommended</div>
         </div>
       </div>
 
@@ -84,7 +92,7 @@
       </div>
 
       <div  v-else>
-        <p style="font-weight: bold;">Click on a cell to show more Weather info!</p>
+        <p style="font-weight:bold;text-align: center;">Click on a cell to show more Weather info!</p>
       </div>
     </div>
 

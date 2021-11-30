@@ -166,3 +166,41 @@ body{
     background-color:var(--color) !important;
     border-color:var(--color) !important ;
 }
+
+#legend_highly_recommend{
+    --color:rgb(255, 235, 135);
+    background-color:var(--color) ;
+    text-align: center;
+    font-weight: bold;
+    height:50px;
+    align-items: center;
+    vertical-align: middle;
+}
+
+#legend_recommend{
+    --color:rgb(232,229,159);
+    background-color:var(--color) ;
+    text-align: center;
+    font-weight: bold;
+    height:50px;
+    align-items: center;
+    vertical-align: middle;
+}
+
+#legend_not_recommend{
+    --color:rgb(209,223,183);
+    background-color:var(--color) ;
+    text-align: center;
+    font-weight: bold;
+    height:50px;
+    vertical-align: middle;
+}
+
+#legend_highly_not_recommend{
+    --color:rgb(129,205,255);
+    background-color:var(--color) ;
+    text-align: center;
+    font-weight: bold;
+    height:50px;
+    vertical-align: middle;
+}
