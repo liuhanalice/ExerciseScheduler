@@ -261,6 +261,16 @@
     return aqiInfo
   }
 
+  function applyAllWeatherAQI() {
+    data.schedule.forEach(r =>
+      r.forEach(x => {
+        let date = new Date(x.dateTime)
+        x.weather = data.weatherInfo[date.getTime()]
+        date.setHours(0, 0, 0, 0)
+        x.aqi = data.airQualityInfo[date.getTime()]
+      }))
+  }
+
   const methods = {
     /**
      * onclick handler when user clicks a time cell
@@ -335,7 +345,7 @@
         url.searchParams.set('key', weatherApiKey)
         url.searchParams.set('days', '10')
         url.searchParams.set('aqi', 'yes')
-        fetch(url.toString() + `&q=${coord.lat},${coord.lon}`
+        let weather = fetch(url.toString() + `&q=${coord.lat},${coord.lon}`
         ).then(r => r.json()
         ).then(js => {
           console.log('Got weather info ...')
@@ -349,7 +359,7 @@
         // air quality
         url = new URL(`https://api.waqi.info/feed/geo:${coord.lat};${coord.lon}/`)
         url.searchParams.set('token', aqiApiKey)
-        fetch(url.toString()).then(r => r.json()
+        let aqi = fetch(url.toString()).then(r => r.json()
         ).then(js => {
           console.log('Got Air Pollution info ...')
           console.log(js)
@@ -359,19 +369,21 @@
           console.error(e)
         })
 
+        // sum up
+        return Promise.all([weather, aqi]).then(_ => {
+          console.log('Got all info!')
+          applyAllWeatherAQI()
+        })
+
+
       }).catch(e => {
         alert(e)
         console.error(e)
       })
     },
     doSchedule() {
-      data.schedule.forEach(r =>
-        r.forEach(x => {
-          let date = new Date(x.dateTime)
-          x.weather = data.weatherInfo[date.getTime()]
-          date.setHours(0, 0, 0, 0)
-          x.aqi = data.airQualityInfo[date.getTime()]
-        }))
+      console.log('You clicked Submit!');
+
     }
   }
 
@@ -3531,6 +3543,8 @@
         }
       })
 
+
+      applyAllWeatherAQI()
     }
 
   })
