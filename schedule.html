@@ -57,7 +57,7 @@
                   <td class="align-middle">{{`${8+2*schIdx}:00-${10+2*schIdx}:00`}}</td>
                   <td width="14%" v-for="cell,dayIdx of sch">
                     <button type="button" :class="cell.state == AVAILABLE?free_class:busy_class" style="width:100%"
-                      v-on:click="!submitted?clickCell(cell):clickCellAfterSubmit(dayIdx,schIdx,$event)"
+                      @click="!submitted?clickCell(cell):clickCellAfterSubmit(cell)"
                       >{{!submitted?(cell.state==AVAILABLE?"Free":"Busy"):"TODO"}}</button>
                   </td>
                 </tr>
@@ -68,11 +68,16 @@
         </div>
       </div>
 
+     
+
       <div class="col d-flex justify-content-center">
         <button @click='doSchedule' class="btn btn-outline-success" style="margin-bottom:20px;width:10em">{{submitted?"Back":"Submit"}}</button>
       </div>
     </div>
 
+    <div class="container" v-if="submitted">
+        <span>{{JSON.stringify(selectedDateWeather)}}</span>
+    </div>
     <!-- <div>
       <button @click='getPosition' class='btn btn-primary'>getPosition</button>
       <span>lat={{coord?.lat}} lon={{coord?.lon}}</span>
@@ -179,6 +184,9 @@
     
     /** @type {Boolean} */
     submitted: false,
+
+    /** @type {Weather?} */
+    selectedDateWeather:null,
 
   }
 
@@ -296,10 +304,13 @@
      * onclick handler when user clicks a time cell after submit
      * modify data.schedule
      *
-     * @param {PointerEvent} e
+     * @param {CellInfo} cell
      */
-    clickCellAfterSubmit: function (day, time,e) {
+    clickCellAfterSubmit: function (cell) {
       console.log('clickCellAfterSubmit');
+
+      data.selectedDateWeather=cell.weather
+
       // let clickedElement = e.target;
       // $(clickedElement).text("");
 
