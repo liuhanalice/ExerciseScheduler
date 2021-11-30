@@ -93,29 +93,32 @@
 <script> // @ts-check
   "use strict"
 
-  class State {
-    // USER DIDN'T CHOOSE IT AS BUSY AND GOOD WEATHER
-    static AVAILABLE = new State('AVAILABLE');
-    // USER CHOOSE IT AS BUSY
-    static BUSY = new State('BUSY');
-    // BAD WEATHER
-    static UNAVAILABLE = new State('UNAVAILABLE');
-    /** @arg {string} name */
-    constructor(name) {
-      this.name = name;
-    }
-  }
+  // USER DIDN'T CHOOSE IT AS BUSY AND GOOD WEATHER
+  const AVAILABLE = 'AVAILABLE'
+  // USER CHOOSE IT AS BUSY
+  const BUSY = 'BUSY'
+  // BAD WEATHER
+  const UNAVAILABLE = 'UNAVAILABLE'
+
+  /** @typedef {AVAILABLE|BUSY|UNAVAILABLE} State */
+
+  /** @typedef {{
+   * humidity:number,
+   * willRain:boolean,
+   * willSnow:boolean,
+   * visibilityKm:number,
+   * uv:number
+   * }} Weather */
+
+  /**
+   * @typedef {{dateTime:Date,state:State,weather:Weather?,aqi_avgPP25:number?}} CellInfo
+   *            |
+   *            `----> [Date] with precise hour; e.g. "2021-11-30T08:00:00-05:00"
+   * @arg {State} state
+   */
 
   const todayDateBase = new Date()
   todayDateBase.setHours(0, 0, 0, 0)
-
-  /**
-   * @typedef {{dateTime:Date,state:State}} CellInfo
-   *            |             |
-   *            |             `----> State; e.g. "AVALIABLE"
-   *            `------------------> [Date] with precise hour; e.g. "2021-11-30T08:00:00-05:00"
-   * @arg {State} state
-   */
 
   const data = {
     /** @type {Date} */
@@ -219,7 +222,9 @@
         /** @type {CellInfo} */
         let curCell = {
           dateTime: addHours(curdate, 8 + 2 * t),
-          state: State.AVAILABLE
+          state: AVAILABLE,
+          weather: null,
+          aqi_avgPP25: null,
         };
         timeHorizon.push(curCell);
       }
@@ -240,12 +245,12 @@
         // console.log("free");
         $(clickedElement).text("Busy");
         $(clickedElement).attr('class', data.busy_class);
-        data.schedule[time][day].state = State.BUSY;
+        data.schedule[time][day].state = BUSY;
       } else {
         // console.log("busy");
         $(clickedElement).text("Free");
         $(clickedElement).attr('class', data.free_class);
-        data.schedule[time][day].state = State.AVAILABLE;
+        data.schedule[time][day].state = AVAILABLE;
       }
       // console.log(data.schedule);
     },
@@ -3334,17 +3339,13 @@
     data.airQualityJson = {
       "status": "ok",
       "data": {
-        "aqi": 13,
-        "idx": 7450,
+        "aqi": 34,
+        "idx": 39,
         "attributions": [
           {
-            "url": "http://www.airnow.gov/",
-            "name": "Air Now - US EPA"
-          },
-          {
-            "url": "http://www.epa.state.oh.us/",
-            "name": "Ohio Environmental Protection Agency",
-            "logo": "US-Ohio.png"
+            "url": "http://www.airqualityontario.com/",
+            "name": "Air Quality Ontario - the Ontario Ministry of the Environment and Climate Change",
+            "logo": "Ontario-Ministry-of-the-Environment-and-Climate-Change.png"
           },
           {
             "url": "https://waqi.info/",
@@ -3353,25 +3354,43 @@
         ],
         "city": {
           "geo": [
-            41.644067,
-            -83.54625
+            42.292889,
+            -83.073139
           ],
-          "name": "Erie, Ohio, USA",
-          "url": "https://aqicn.org/city/usa/ohio/erie"
+          "name": "Windsor West, Ontario, Canada",
+          "url": "https://aqicn.org/city/canada/ontario/windsor-west"
         },
         "dominentpol": "pm25",
         "iaqi": {
+          "co": {
+            "v": 1.6
+          },
           "h": {
-            "v": 99
+            "v": 97
+          },
+          "no2": {
+            "v": 2.7
+          },
+          "o3": {
+            "v": 24.1
           },
           "p": {
-            "v": 1006.4
+            "v": 1011.9
           },
           "pm25": {
-            "v": 13
+            "v": 34
+          },
+          "so2": {
+            "v": 0.9
           },
           "t": {
             "v": 0
+          },
+          "w": {
+            "v": 0.1
+          },
+          "wg": {
+            "v": 0.8
           }
         },
         "time": {
@@ -3384,147 +3403,141 @@
           "daily": {
             "o3": [
               {
-                "avg": 10,
+                "avg": 8,
                 "day": "2021-11-28",
-                "max": 13,
-                "min": 5
+                "max": 11,
+                "min": 3
               },
               {
-                "avg": 11,
+                "avg": 8,
                 "day": "2021-11-29",
-                "max": 14,
-                "min": 7
-              },
-              {
-                "avg": 10,
-                "day": "2021-11-30",
-                "max": 14,
-                "min": 8
+                "max": 10,
+                "min": 4
               },
               {
                 "avg": 6,
+                "day": "2021-11-30",
+                "max": 12,
+                "min": 1
+              },
+              {
+                "avg": 5,
                 "day": "2021-12-01",
                 "max": 10,
                 "min": 1
               },
               {
-                "avg": 10,
+                "avg": 9,
                 "day": "2021-12-02",
-                "max": 14,
-                "min": 8
-              },
-              {
-                "avg": 8,
-                "day": "2021-12-03",
                 "max": 12,
-                "min": 5
+                "min": 4
               },
               {
-                "avg": 12,
+                "avg": 4,
+                "day": "2021-12-03",
+                "max": 8,
+                "min": 2
+              },
+              {
+                "avg": 11,
                 "day": "2021-12-04",
                 "max": 15,
-                "min": 5
+                "min": 2
               }
             ],
             "pm10": [
               {
-                "avg": 6,
+                "avg": 8,
                 "day": "2021-11-28",
-                "max": 14,
-                "min": 1
-              },
-              {
-                "avg": 4,
-                "day": "2021-11-29",
-                "max": 6,
-                "min": 1
+                "max": 15,
+                "min": 2
               },
               {
                 "avg": 7,
-                "day": "2021-11-30",
-                "max": 10,
-                "min": 3
+                "day": "2021-11-29",
+                "max": 9,
+                "min": 2
               },
               {
-                "avg": 17,
+                "avg": 16,
+                "day": "2021-11-30",
+                "max": 34,
+                "min": 4
+              },
+              {
+                "avg": 18,
                 "day": "2021-12-01",
-                "max": 28,
+                "max": 30,
                 "min": 7
               },
               {
-                "avg": 7,
+                "avg": 6,
                 "day": "2021-12-02",
-                "max": 16,
-                "min": 3
+                "max": 14,
+                "min": 2
               },
               {
-                "avg": 4,
+                "avg": 7,
                 "day": "2021-12-03",
-                "max": 5,
-                "min": 2
+                "max": 11,
+                "min": 5
               }
             ],
             "pm25": [
               {
-                "avg": 24,
+                "avg": 29,
                 "day": "2021-11-28",
                 "max": 54,
                 "min": 3
               },
               {
-                "avg": 12,
+                "avg": 18,
                 "day": "2021-11-29",
-                "max": 23,
-                "min": 3
-              },
-              {
-                "avg": 26,
-                "day": "2021-11-30",
-                "max": 38,
-                "min": 10
-              },
-              {
-                "avg": 58,
-                "day": "2021-12-01",
-                "max": 83,
-                "min": 26
-              },
-              {
-                "avg": 19,
-                "day": "2021-12-02",
-                "max": 57,
-                "min": 6
-              },
-              {
-                "avg": 15,
-                "day": "2021-12-03",
                 "max": 27,
+                "min": 4
+              },
+              {
+                "avg": 42,
+                "day": "2021-11-30",
+                "max": 81,
+                "min": 11
+              },
+              {
+                "avg": 52,
+                "day": "2021-12-01",
+                "max": 71,
+                "min": 19
+              },
+              {
+                "avg": 17,
+                "day": "2021-12-02",
+                "max": 52,
                 "min": 5
               },
               {
-                "avg": 6,
+                "avg": 28,
+                "day": "2021-12-03",
+                "max": 49,
+                "min": 14
+              },
+              {
+                "avg": 8,
                 "day": "2021-12-04",
-                "max": 27,
+                "max": 34,
                 "min": 3
               }
             ],
             "uvi": [
               {
                 "avg": 0,
-                "day": "2021-11-28",
-                "max": 1,
-                "min": 0
-              },
-              {
-                "avg": 0,
                 "day": "2021-11-29",
-                "max": 2,
+                "max": 1,
                 "min": 0
               },
               {
                 "avg": 0,
                 "day": "2021-11-30",
-                "max": 1,
+                "max": 2,
                 "min": 0
               },
               {
@@ -3536,13 +3549,13 @@
               {
                 "avg": 0,
                 "day": "2021-12-02",
-                "max": 2,
+                "max": 1,
                 "min": 0
               },
               {
                 "avg": 0,
                 "day": "2021-12-03",
-                "max": 2,
+                "max": 1,
                 "min": 0
               },
               {
@@ -3555,7 +3568,7 @@
           }
         },
         "debug": {
-          "sync": "2021-11-30T17:24:57+09:00"
+          "sync": "2021-11-30T17:27:46+09:00"
         }
       }
     }
