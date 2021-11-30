@@ -174,7 +174,7 @@
   const highly_recommend = "btn highly_recommend"
   const recommend = "btn recommend"
   const not_recommend = "btn not_recommend"
-  const highly_not_recommend = "btn not_recommend"
+  const highly_not_recommend = "btn highly_not_recommend"
   const busy_class_submited = "btn btn-light"
 
 
@@ -303,9 +303,9 @@
     let weather = {}
     js.properties.periods.forEach(x => {
       /** @type {string} */
-      let descLC = x.shortForecast.toLowerCase()
+      let descLC = x.shortForecast.toUpperCase()
       weather[new Date(x.startTime).getTime()] = {
-        brief: descLC.includes(SUNNY) ? SUNNY : (descLC.includes(RAINY) ? RAINY : (descLC.includes(SNOWY) ? SNOWY : CLOUDY)),
+        brief: descLC.includes(SUNNY) ? SUNNY : (descLC.includes('RAIN') ? RAINY : (descLC.includes('SNOW') ? SNOWY : CLOUDY)),
         tempF: x.temperature,
         windSpd: x.windSpeed,
         windDir: x.windDirection,
