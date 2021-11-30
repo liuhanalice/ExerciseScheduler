@@ -16,7 +16,7 @@
 </head>
 
 <body>
-  <div id='app'>
+  <div id='app' style='margin-bottom:3em;'>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark"
       style='background-color:#001d64;font-family: "Josefin Sans";'>
       <div class="container-fluid">
@@ -58,7 +58,7 @@
                   <td width="14%" v-for="cell,dayIdx of sch">
                     <button type="button" :class="btnStyle(cell)" style="width:100%"
                       @click="!submitted?clickCell(cell):clickCellAfterSubmit(cell)"
-                      >{{!submitted?(cell.state==AVAILABLE?"Free":"Busy"):cell.weather?.brief||'N/A'}}</button>
+                      >{{!submitted?(cell.state==AVAILABLE?"Free":"Busy"):cell.weather?.brief||'No Data'}}</button>
                   </td>
                 </tr>
               </tbody>
@@ -73,6 +73,7 @@
          <div id="legend_recommend" class='d-flex align-items-center justify-content-center'>Recommended</div>
          <div id="legend_not_recommend" class='d-flex align-items-center justify-content-center'>Not Recommended</div>
          <div id="legend_highly_not_recommend" class='d-flex align-items-center justify-content-center'>Strongly not Recommended</div>
+         <div id="legend_not_available" class='d-flex align-items-center justify-content-center'>Not Available</div>
         </div>
       </div>
 
@@ -81,19 +82,27 @@
       </div>
     </div>
 
-    <div class="container" v-if="submitted">
+    <div class="container d-flex justify-content-center " v-if="submitted">
+      <div class="card">
+        <div class="card-body">
+
      <div v-if="selectedDateWeather!=null">
         <img :src="weatherIcon" alt="Weather Icon" width="50" height="50">
+        <p><span style="font-weight: bold;">Date:</span> {{  `${selectedCell?.dateTime.getFullYear()}-${selectedCell?.dateTime.getMonth()}-${selectedCell?.dateTime.getDay()}`  }}</p>
         <p><span style="font-weight: bold;">Weather:</span> {{JSON.stringify(selectedDateWeather.brief)}}</p>
-        <p> <span style="font-weight: bold;">Temperature (F): </span>{{JSON.stringify(selectedDateWeather.tempF)}}</p>
+        <p> <span style="font-weight: bold;">AQI (PM 2.5): </span>{{  getAirQualityDesc(selectedCell?.aqi?.avgPM25)  }}</p>
+        <p> <span style="font-weight: bold;">Temperature (°F): </span>{{JSON.stringify(selectedDateWeather.tempF)}}</p>
         <p> <span style="font-weight: bold;">Wind Speed (mph): </span>{{JSON.stringify(selectedDateWeather.windSpd)}}</p>
         <p> <span style="font-weight: bold;">Wind Direction: </span>{{JSON.stringify(selectedDateWeather.windDir)}}</p>
         <p> <span style="font-weight: bold;">Description: </span>{{JSON.stringify(selectedDateWeather.desc)}}</p>
+        <p v-if='isToday(selectedCell?.dateTime)' class='d-flex justify-content-center'><a type="button" class='btn btn-outline-primary' href='/places.html'>Show me suggested places</a></p>
       </div>
 
       <div  v-else>
         <p style="font-weight:bold;text-align: center;">Click on a cell to show more Weather info!</p>
       </div>
+    
+    </div></div>
     </div>
 
     <!-- <div>
@@ -218,6 +227,9 @@
 
     /** @type {Weather?} */
     selectedDateWeather:null,
+
+    /** @type {CellInfo?} */
+    selectedCell:null,
     
     /** @type {String} */
     weatherIcon: null,
@@ -326,6 +338,27 @@
 
   const methods = {
     /**
+     * @param {number} pm25
+     */
+    getAirQualityDesc(pm25){
+      if (pm25 == null) return 'No Data'
+      else if (pm25 >250.5 ) return pm25+'μg/m3 (Harzardous)'
+      else if (pm25>150.5) return pm25+'μg/m3 (Very Unhealthy)'
+      else if (pm25>55.5) return pm25+'μg/m3 (Unhealthy)'
+      else if (pm25>35.5) return pm25+'μg/m3 (Unhealthy for the Sensitive)'
+      else if (pm25>12.1) return pm25+'μg/m3 (Moderate)'
+      else if (pm25>0) return pm25+'μg/m3 (Excellent)'
+      else return 'Not Available'
+    },
+    /**
+     * @param {Date} date
+     */
+isToday(date){
+ date = new Date(date)
+date.setHours(0,0,0,0)
+return date.getTime() == data.todayDateBase.getTime()
+},
+    /**
      * @param {CellInfo} cell
      */
     btnStyle(cell){
@@ -376,7 +409,8 @@
       console.log('clickCellAfterSubmit');
 console.log(cell);
       
-      data.selectedDateWeather = cell.weather
+data.selectedDateWeather = cell.weather
+      data.selectedCell = cell
 
       if(data.selectedDateWeather != null)
       data.weatherIcon = "assets/"+ data.selectedDateWeather.brief +".png";

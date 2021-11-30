@@ -204,3 +204,12 @@ body{
     height:50px;
     vertical-align: middle;
 }
+
+#legend_not_available{
+    --color:#f8f9fa;
+    background-color:var(--color) ;
+    text-align: center;
+    font-weight: bold;
+    height:50px;
+    vertical-align: middle;
+}
