@@ -53,22 +53,22 @@
     <span style='margin-top:100px'>Getting recommended places to workout...<br><br></span>
 
     <div v-if="weatherJson?.daily[0].weather[0]['main'] == 'Snow' || weatherJson?.daily[0].weather[0]['main'] == 'Rain' 
-              || weatherJson?.daily[0].weather[0]['main'] == 'Cloudy' " style="text-align: center;width:100%;height:90vh;">
+              || weatherJson?.daily[0].weather[0]['main'] == 'Cloudy' " style="text-align: center;width:100%;height:94vh;">
        <iframe v-if="position "
         width="100%"
-        height="90vh"
-        style="border:0;width:100%;height:90vh"
+        height="94vh"
+        style="border:0;width:100%;height:94vh"
         loading="lazy"
         allowfullscreen
         v-bind:src=" 'https://www.google.com/maps/embed/v1/place?key=AIzaSyAobVQjbBRXfConurRuTjtv4YSfehuepug&q=gym&center=' + position?.coords?.latitude + ',' + position?.coords?.longitude ">
       </iframe>
     </div>
 
-    <div v-else style="text-align: center;width:100%;height:90vh">
+    <div v-else style="text-align: center;width:100%;height:94vh">
        <iframe v-if="position "
         width="100%"
-        height="90vh"
-        style="border:0;width:100%;height:90vh"
+        height="94vh"
+        style="border:0;width:100%;height:94vh"
         loading="lazy"
         allowfullscreen
         v-bind:src=" 'https://www.google.com/maps/embed/v1/place?key=AIzaSyAobVQjbBRXfConurRuTjtv4YSfehuepug&q=park&center=' + position?.coords?.latitude + ',' + position?.coords?.longitude ">
