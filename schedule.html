@@ -56,9 +56,9 @@
                 <tr v-for='sch,schIdx of schedule'>
                   <td class="align-middle">{{`${8+2*schIdx}:00-${10+2*schIdx}:00`}}</td>
                   <td width="14%" v-for="cell,dayIdx of sch">
-                    <button type="button" :class="cell.state == AVAILABLE?free_class:busy_class" style="width:100%"
+                    <button type="button" :class="btnStyle(cell)" style="width:100%"
                       @click="!submitted?clickCell(cell):clickCellAfterSubmit(cell)"
-                      >{{!submitted?(cell.state==AVAILABLE?"Free":"Busy"):"TODO"}}</button>
+                      >{{!submitted?(cell.state==AVAILABLE?"Free":"Busy"):cell.weather?.brief||'N/A'}}</button>
                   </td>
                 </tr>
               </tbody>
@@ -74,8 +74,20 @@
     </div>
 
     <div class="container" v-if="submitted">
-        <span>{{JSON.stringify(selectedDateWeather)}}</span>
+     <div v-if="selectedDateWeather!=null">
+        <img :src="weatherIcon" alt="Weather Icon" width="50" height="50">
+        <p><span style="font-weight: bold;">Weather:</span> {{JSON.stringify(selectedDateWeather.brief)}}</p>
+        <p> <span style="font-weight: bold;">Temperature (F): </span>{{JSON.stringify(selectedDateWeather.tempF)}}</p>
+        <p> <span style="font-weight: bold;">Wind Speed (mph): </span>{{JSON.stringify(selectedDateWeather.windSpd)}}</p>
+        <p> <span style="font-weight: bold;">Wind Direction: </span>{{JSON.stringify(selectedDateWeather.windDir)}}</p>
+        <p> <span style="font-weight: bold;">Description: </span>{{JSON.stringify(selectedDateWeather.desc)}}</p>
+      </div>
+
+      <div  v-else>
+        <p style="font-weight: bold;">Click on a cell to show more Weather info!</p>
+      </div>
     </div>
+
     <!-- <div>
       <button @click='getPosition' class='btn btn-primary'>getPosition</button>
       <span>lat={{coord?.lat}} lon={{coord?.lon}}</span>
@@ -132,16 +144,29 @@
   const todayDateBase = new Date()
   todayDateBase.setHours(0, 0, 0, 0)
 
+  const   busy_class= "btn btn-warning"
+    // free_class: 'bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13',
+    // free_class: 'btn btn-success',
+  const   free_class= "btn btn-success"
+
+  const free_sunny_class = "btn sunny"
+  const free_cloudy_class = "btn cloudy"
+  const free_rainy_class = "btn rainy"
+  const free_snowy_class = "btn snowy"
+
+  const highly_recommend = "btn highly_recommend"
+  const recommend = "btn recommend"
+  const not_recommend = "btn not_recommend"
+  const highly_not_recommend = "btn not_recommend"
+  const busy_class_submited = "btn btn-light"
+
+
   const data = {
     AVAILABLE,
     BUSY,
     UNAVAILABLE,
     /** @type {Date} */
-    todayDateBase,
-    busy_class: "btn btn-warning",
-    // free_class: 'bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13',
-    // free_class: 'btn btn-success',
-    free_class: "btn btn-success",
+    todayDateBase,  
 
     navBarTextsBadges: [['Home', 'index.html'], ['Schedule', 'schedule.html'], ['Places', 'places.html'], ['Help', 'help.html'],],
     navBarSelected: 1,
@@ -185,6 +210,9 @@
 
     /** @type {Weather?} */
     selectedDateWeather:null,
+    
+    /** @type {String} */
+    weatherIcon: null,
 
   }
 
@@ -290,6 +318,38 @@
 
   const methods = {
     /**
+     * @param {CellInfo} cell
+     */
+    btnStyle(cell){
+      if(!data.submitted)
+        return cell.state == AVAILABLE?free_class:busy_class
+      
+      if (cell.state == AVAILABLE){
+        if(cell.weather == null){
+          return busy_class_submited
+        }
+        if (cell.weather.brief==SUNNY ){
+          if(cell.weather.tempF > 35)
+            return highly_recommend
+          else
+            return recommend
+        }
+        else if (cell.weather.brief==CLOUDY){
+          if(cell.weather.tempF > 38)
+            return highly_recommend
+          if(cell.weather.tempF > 30)
+            return recommend
+          else{
+            return not_recommend
+          }
+        }
+        else if(cell.weather.brief==RAINY ||cell.weather.brief==SNOWY ){
+          return highly_not_recommend
+        }
+      }
+      return busy_class_submited
+    },
+    /**
      * onclick handler when user clicks a time cell
      * modify data.schedule
      *
@@ -306,9 +366,12 @@
      */
     clickCellAfterSubmit: function (cell) {
       console.log('clickCellAfterSubmit');
+console.log(cell);
+      
+      data.selectedDateWeather = cell.weather
 
-      data.selectedDateWeather=cell.weather
-
+      if(data.selectedDateWeather != null)
+      data.weatherIcon = "assets/"+ data.selectedDateWeather.brief +".png";
       // let clickedElement = e.target;
       // $(clickedElement).text("");
 
@@ -398,6 +461,7 @@
       })
     },
     doSchedule() {
+      methods.getWeatherAQI();
       data.submitted = !data.submitted;
       console.log('You clicked Submit!');
 
