@@ -17,9 +17,7 @@
 </head>
 
 <body>
-
   <div id='app'>
-
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark"
       style='background-color:#001d64;font-family: "Josefin Sans";'>
       <div class="container-fluid">
@@ -37,34 +35,100 @@
             </a>
             <a class="nav-link" target="_blank" href='https://github.com/epigone707/ExerciseScheduler'>Github
             </a>
-
           </div>
         </div>
       </div>
     </nav>
-    <div style='margin-top:300px'>
-      places nearby
+
+   <!--  <div style='margin-top:300px'>
+      <button @click='getPosition'>Click to get recommended place to workout!</button>
+      {{position?.coords?.latitude}}
+      {{position?.coords?.longitude}}
+      {{position?.coords?.accuracy}}
 
     </div>
 
+    <button @click='getWeatherInfo'>Get weather info</button>
+    {{weatherJson}} -->
+    <div style='margin-top:100px'>Getting recommended places to workout...</div><br><br>
+
+    <div v-if="weatherJson?.daily[0].weather[0]['main'] == 'Snow' || weatherJson?.daily[0].weather[0]['main'] == 'Rain' 
+              || weatherJson?.daily[0].weather[0]['main'] == 'Cloudy' " style="text-align: center">
+       <iframe v-if="position "
+        width="600"
+        height="450"
+        style="border:0"
+        loading="lazy"
+        allowfullscreen
+        v-bind:src=" 'https://www.google.com/maps/embed/v1/place?key=AIzaSyAobVQjbBRXfConurRuTjtv4YSfehuepug&q=gym&center=' + position?.coords?.latitude + ',' + position?.coords?.longitude ">
+      </iframe>
+    </div>
+
+    <div v-else style="text-align: center">
+       <iframe v-if="position "
+        width="600"
+        height="450"
+        style="border:0"
+        loading="lazy"
+        allowfullscreen
+        v-bind:src=" 'https://www.google.com/maps/embed/v1/place?key=AIzaSyAobVQjbBRXfConurRuTjtv4YSfehuepug&q=park&center=' + position?.coords?.latitude + ',' + position?.coords?.longitude ">
+      </iframe>
+    </div>
 
   </div> <!-- #app -->
-
 </body>
 
 <script>  // @ts-check
   "use strict"
-
   const data = {
     /** @type {([string,string|null])[]} */
     navBarTextsBadges: [['Home', 'index.html'], ['Schedule', 'schedule.html'], ['Places', 'places.html'],['Help', 'help.html'],],
     navBarSelected: 2,
+    position: null,
+    weatherJson: null,
   }
+
   document.addEventListener('DOMContentLoaded', _ => {
     const app = new Vue({
       el: '#app',
       data,
       methods: {
+        getPosition() {
+          if (!navigator.geolocation)
+            alert('Geolocation API is not supported by your browser!')
+
+          console.log('Getting current location ...')
+          navigator.geolocation.getCurrentPosition(
+            pos => {
+              console.log('Got current location!')
+              data.position = pos
+              const coords = pos.coords
+              let url;
+
+               // weather
+              url = new URL('https://api.openweathermap.org/data/2.5/onecall?lat=' + coords.latitude + '&lon=' + coords.longitude + '&exclude=minutely,hourly,current&appid=4a52430807e5bccd7225dd912578a902')
+           
+              fetch(url.toString()).then(r => r.json()
+              ).then(js => {
+                console.log(js)
+                data.weatherJson = js
+              }).catch(e => {
+                alert(e)
+                throw e
+              })
+
+            },
+            err => {
+              let s = `Cannot get loation! ${err.message}`
+              console.log(s)
+              alert(s)
+            })
+        },
+
+      },
+      created() {
+        this.getPosition()
+
       },
     })
   })
