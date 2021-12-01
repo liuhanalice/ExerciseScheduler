@@ -57,8 +57,8 @@
                   <td class="align-middle">{{`${8+2*schIdx}:00-${10+2*schIdx}:00`}}</td>
                   <td width="14%" v-for="cell,dayIdx of sch">
                     <button type="button" :class="btnStyle(cell)" style="width:100%"
-                      @click="!submitted?clickCell(cell):clickCellAfterSubmit(cell)"
-                      >{{!submitted?(cell.state==AVAILABLE?"Free":"Busy"):cell.weather?.brief||'No Data'}}</button>
+                      @click="!submitted?clickCell(cell):clickCellAfterSubmit(cell)">
+                      {{!submitted?(cell.state==AVAILABLE?"Free":"Busy"):cell.weather?.brief||'No Data'}}</button>
                   </td>
                 </tr>
               </tbody>
@@ -66,19 +66,22 @@
             </table>
           </div>
 
-         
-        </div> 
+
+        </div>
         <div class="col" v-if="submitted" style="margin:20px 0">
-         <div id="legend_highly_recommend" class='d-flex align-items-center justify-content-center'>Strongly Recommended</div>
-         <div id="legend_recommend" class='d-flex align-items-center justify-content-center'>Recommended</div>
-         <div id="legend_not_recommend" class='d-flex align-items-center justify-content-center'>Not Recommended</div>
-         <div id="legend_highly_not_recommend" class='d-flex align-items-center justify-content-center'>Strongly not Recommended</div>
-         <div id="legend_not_available" class='d-flex align-items-center justify-content-center'>Not Available</div>
+          <div id="legend_highly_recommend" class='d-flex align-items-center justify-content-center'>Strongly
+            Recommended</div>
+          <div id="legend_recommend" class='d-flex align-items-center justify-content-center'>Recommended</div>
+          <div id="legend_not_recommend" class='d-flex align-items-center justify-content-center'>Not Recommended</div>
+          <div id="legend_highly_not_recommend" class='d-flex align-items-center justify-content-center'>Strongly not
+            Recommended</div>
+          <div id="legend_not_available" class='d-flex align-items-center justify-content-center'>Not Available</div>
         </div>
       </div>
 
       <div class="col d-flex justify-content-center">
-        <button @click='doSchedule' class="btn btn-outline-success" style="margin-bottom:20px;width:10em">{{submitted?"Back":"Submit"}}</button>
+        <button @click='doSchedule' class="btn btn-outline-success"
+          style="margin-bottom:20px;width:10em">{{submitted?"Back":"Submit"}}</button>
       </div>
     </div>
 
@@ -86,23 +89,31 @@
       <div class="card">
         <div class="card-body">
 
-     <div v-if="selectedDateWeather!=null">
-        <img :src="weatherIcon" alt="Weather Icon" width="50" height="50">
-        <p><span style="font-weight: bold;">Date:</span> {{  `${selectedCell?.dateTime.getFullYear()}-${selectedCell?.dateTime.getMonth()}-${selectedCell?.dateTime.getDay()}`  }}</p>
-        <p><span style="font-weight: bold;">Weather:</span> {{JSON.stringify(selectedDateWeather.brief)}}</p>
-        <p> <span style="font-weight: bold;">AQI (PM 2.5): </span>{{  getAirQualityDesc(selectedCell?.aqi?.avgPM25)  }}</p>
-        <p> <span style="font-weight: bold;">Temperature (°F): </span>{{JSON.stringify(selectedDateWeather.tempF)}}</p>
-        <p> <span style="font-weight: bold;">Wind Speed (mph): </span>{{JSON.stringify(selectedDateWeather.windSpd)}}</p>
-        <p> <span style="font-weight: bold;">Wind Direction: </span>{{JSON.stringify(selectedDateWeather.windDir)}}</p>
-        <p> <span style="font-weight: bold;">Description: </span>{{JSON.stringify(selectedDateWeather.desc)}}</p>
-        <p v-if='isToday(selectedCell?.dateTime)' class='d-flex justify-content-center'><a type="button" class='btn btn-outline-primary' href='/places.html'>Show me suggested places</a></p>
-      </div>
+          <div v-if="selectedDateWeather!=null">
+            <img :src="weatherIcon" alt="Weather Icon" width="50" height="50">
+            <p><span style="font-weight: bold;">Date:</span> {{
+              `${selectedCell?.dateTime.getFullYear()}-${selectedCell?.dateTime.getMonth()}-${selectedCell?.dateTime.getDay()}`
+              }}</p>
+            <p><span style="font-weight: bold;">Weather:</span> {{JSON.stringify(selectedDateWeather.brief)}}</p>
+            <p> <span style="font-weight: bold;">AQI (PM 2.5): </span>{{ getAirQualityDesc(selectedCell?.aqi?.avgPM25)
+              }}</p>
+            <p> <span style="font-weight: bold;">Temperature (°F): </span>{{JSON.stringify(selectedDateWeather.tempF)}}
+            </p>
+            <p> <span style="font-weight: bold;">Wind Speed (mph):
+              </span>{{JSON.stringify(selectedDateWeather.windSpd)}}</p>
+            <p> <span style="font-weight: bold;">Wind Direction: </span>{{JSON.stringify(selectedDateWeather.windDir)}}
+            </p>
+            <p> <span style="font-weight: bold;">Description: </span>{{JSON.stringify(selectedDateWeather.desc)}}</p>
+            <p v-if='isToday(selectedCell?.dateTime)' class='d-flex justify-content-center'><a type="button"
+                class='btn btn-outline-primary' href='/places.html'>Show me suggested places</a></p>
+          </div>
 
-      <div  v-else>
-        <p style="font-weight:bold;text-align: center;">Click on a cell to show more Weather info!</p>
+          <div v-else>
+            <p style="font-weight:bold;text-align: center;">Click on a cell to show more Weather info!</p>
+          </div>
+
+        </div>
       </div>
-    
-    </div></div>
     </div>
 
     <!-- <div>
@@ -161,10 +172,10 @@
   const todayDateBase = new Date()
   todayDateBase.setHours(0, 0, 0, 0)
 
-  const   busy_class= "btn btn-warning"
-    // free_class: 'bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13',
-    // free_class: 'btn btn-success',
-  const   free_class= "btn btn-success"
+  const busy_class = "btn btn-warning"
+  // free_class: 'bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13',
+  // free_class: 'btn btn-success',
+  const free_class = "btn btn-success"
 
   const free_sunny_class = "btn sunny"
   const free_cloudy_class = "btn cloudy"
@@ -183,7 +194,7 @@
     BUSY,
     UNAVAILABLE,
     /** @type {Date} */
-    todayDateBase,  
+    todayDateBase,
 
     navBarTextsBadges: [['Home', 'index.html'], ['Schedule', 'schedule.html'], ['Places', 'places.html'], ['Help', 'help.html'],],
     navBarSelected: 1,
@@ -221,16 +232,16 @@
 
     /** @type {{[key:number]:AirQuality}} */
     airQualityInfo: null,
-    
+
     /** @type {Boolean} */
     submitted: false,
 
     /** @type {Weather?} */
-    selectedDateWeather:null,
+    selectedDateWeather: null,
 
     /** @type {CellInfo?} */
-    selectedCell:null,
-    
+    selectedCell: null,
+
     /** @type {String} */
     weatherIcon: null,
 
@@ -340,51 +351,51 @@
     /**
      * @param {number} pm25
      */
-    getAirQualityDesc(pm25){
+    getAirQualityDesc(pm25) {
       if (pm25 == null) return 'No Data'
-      else if (pm25 >250.5 ) return pm25+'μg/m3 (Harzardous)'
-      else if (pm25>150.5) return pm25+'μg/m3 (Very Unhealthy)'
-      else if (pm25>55.5) return pm25+'μg/m3 (Unhealthy)'
-      else if (pm25>35.5) return pm25+'μg/m3 (Unhealthy for the Sensitive)'
-      else if (pm25>12.1) return pm25+'μg/m3 (Moderate)'
-      else if (pm25>0) return pm25+'μg/m3 (Excellent)'
+      else if (pm25 > 250.5) return pm25 + 'μg/m3 (Harzardous)'
+      else if (pm25 > 150.5) return pm25 + 'μg/m3 (Very Unhealthy)'
+      else if (pm25 > 55.5) return pm25 + 'μg/m3 (Unhealthy)'
+      else if (pm25 > 35.5) return pm25 + 'μg/m3 (Unhealthy for the Sensitive)'
+      else if (pm25 > 12.1) return pm25 + 'μg/m3 (Moderate)'
+      else if (pm25 > 0) return pm25 + 'μg/m3 (Excellent)'
       else return 'Not Available'
     },
     /**
      * @param {Date} date
      */
-isToday(date){
- date = new Date(date)
-date.setHours(0,0,0,0)
-return date.getTime() == data.todayDateBase.getTime()
-},
+    isToday(date) {
+      date = new Date(date)
+      date.setHours(0, 0, 0, 0)
+      return date.getTime() == data.todayDateBase.getTime()
+    },
     /**
      * @param {CellInfo} cell
      */
-    btnStyle(cell){
-      if(!data.submitted)
-        return cell.state == AVAILABLE?free_class:busy_class
-      
-      if (cell.state == AVAILABLE){
-        if(cell.weather == null){
+    btnStyle(cell) {
+      if (!data.submitted)
+        return cell.state == AVAILABLE ? free_class : busy_class
+
+      if (cell.state == AVAILABLE) {
+        if (cell.weather == null) {
           return busy_class_submited
         }
-        if (cell.weather.brief==SUNNY ){
-          if(cell.weather.tempF > 35)
+        if (cell.weather.brief == SUNNY) {
+          if (cell.weather.tempF > 35)
             return highly_recommend
           else
             return recommend
         }
-        else if (cell.weather.brief==CLOUDY){
-          if(cell.weather.tempF > 38)
+        else if (cell.weather.brief == CLOUDY) {
+          if (cell.weather.tempF > 38)
             return highly_recommend
-          if(cell.weather.tempF > 30)
+          if (cell.weather.tempF > 30)
             return recommend
-          else{
+          else {
             return not_recommend
           }
         }
-        else if(cell.weather.brief==RAINY ||cell.weather.brief==SNOWY ){
+        else if (cell.weather.brief == RAINY || cell.weather.brief == SNOWY) {
           return highly_not_recommend
         }
       }
@@ -397,23 +408,23 @@ return date.getTime() == data.todayDateBase.getTime()
      * @param {CellInfo} cell
      */
     clickCell: function (cell) {
-      cell.state = cell.state==AVAILABLE?BUSY:AVAILABLE
+      cell.state = cell.state == AVAILABLE ? BUSY : AVAILABLE
     },
-     /**
-     * onclick handler when user clicks a time cell after submit
-     * modify data.schedule
-     *
-     * @param {CellInfo} cell
-     */
+    /**
+    * onclick handler when user clicks a time cell after submit
+    * modify data.schedule
+    *
+    * @param {CellInfo} cell
+    */
     clickCellAfterSubmit: function (cell) {
       console.log('clickCellAfterSubmit');
-console.log(cell);
-      
-data.selectedDateWeather = cell.weather
+      console.log(cell);
+
+      data.selectedDateWeather = cell.weather
       data.selectedCell = cell
 
-      if(data.selectedDateWeather != null)
-      data.weatherIcon = "assets/"+ data.selectedDateWeather.brief +".png";
+      if (data.selectedDateWeather != null)
+        data.weatherIcon = "assets/" + data.selectedDateWeather.brief + ".png";
       // let clickedElement = e.target;
       // $(clickedElement).text("");
 
