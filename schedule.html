@@ -58,7 +58,7 @@
                   <td width="14%" v-for="cell,dayIdx of sch">
                     <button type="button" :class="btnStyle(cell)" style="width:100%"
                       @click="!submitted?clickCell(cell):clickCellAfterSubmit(cell)">
-                      {{!submitted?(cell.state==AVAILABLE?"Free":"Busy"):cell.weather?.brief||'No Data'}}</button>
+                      {{!submitted?(cell.state==AVAILABLE?"Free":"Busy"):cell.weather?.brief||'N/A'}}</button>
                   </td>
                 </tr>
               </tbody>
@@ -75,14 +75,15 @@
           <div id="legend_not_recommend" class='d-flex align-items-center justify-content-center'>Not Recommended</div>
           <div id="legend_highly_not_recommend" class='d-flex align-items-center justify-content-center'>Strongly not
             Recommended</div>
-          <div id="legend_not_available" class='d-flex align-items-center justify-content-center'>Not Available</div>
+          <div id="legend_not_available" class='d-flex align-items-center justify-content-center'>Busy</div>
         </div>
       </div>
 
       <div class="col d-flex justify-content-center">
         <button @click='doSchedule' class="btn btn-outline-success"
           style="margin-bottom:20px;width:10em">{{submitted?"Back":"Submit"}}</button>
-      </div>
+        <a v-if="submitted" href="places.html" class="btn btn-outline-success"  style="margin-bottom:20px;width:10em;margin-left:2em">Schedule Place</a>  
+        </div>
     </div>
 
     <div class="container d-flex justify-content-center " v-if="submitted">
@@ -196,7 +197,7 @@
     /** @type {Date} */
     todayDateBase,
 
-    navBarTextsBadges: [['Home', 'index.html'], ['Schedule', 'schedule.html'], ['Places', 'places.html'], ['Help', 'help.html'],],
+    navBarTextsBadges: [['Home', 'index.html'], ['Schedule', 'schedule.html'], ['Place', 'places.html'], ['Help', 'help.html'],],
     navBarSelected: 1,
 
     dateArray: ["", "", "", "", "", ""],
