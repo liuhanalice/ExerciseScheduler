@@ -13,6 +13,7 @@
   <!-- <script defer src="https://cdn.jsdelivr.net/npm/axios@0/dist/axios.min.js"></script> -->
   <script defer src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.slim.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.min.js"></script>
+  <script src="https://apis.google.com/js/api.js"></script>
 </head>
 
 <body>
@@ -77,13 +78,20 @@
             Recommended</div>
           <div id="legend_not_available" class='d-flex align-items-center justify-content-center'>Busy</div>
         </div>
+
+        <div class="col" v-if="!submitted" style="margin:20px 0">
+          <button @click="importCalendar" class="btn btn-outline-info" style="margin-bottom:20px;width:10em"> Import
+            Google Calendar</button>
+        </div>
+
       </div>
 
       <div class="col d-flex justify-content-center">
         <button @click='doSchedule' class="btn btn-outline-success"
           style="margin-bottom:20px;width:10em">{{submitted?"Back":"Submit"}}</button>
-        <a v-if="submitted" href="places.html" class="btn btn-outline-success"  style="margin-bottom:20px;width:10em;margin-left:2em">Schedule Place</a>  
-        </div>
+        <a v-if="submitted" href="places.html" class="btn btn-outline-success"
+          style="margin-bottom:20px;width:10em;margin-left:2em">Schedule Place</a>
+      </div>
     </div>
 
     <div class="container d-flex justify-content-center " v-if="submitted">
@@ -170,6 +178,14 @@
    * @arg {State} state
    */
 
+  /**
+   * @typedef {{
+   * id:string,
+   * summary:string,
+   * desc:string
+   * }} GoogleCalendar
+   */
+
   const todayDateBase = new Date()
   todayDateBase.setHours(0, 0, 0, 0)
 
@@ -246,6 +262,8 @@
     /** @type {String} */
     weatherIcon: null,
 
+    /** @type {GoogleCalendar[]?} */
+    gCals: null
   }
 
   let getWeatherApiKey = () => fetch('key-weather.txt').then(r => r.text()).then(r => r.trim())
@@ -309,6 +327,38 @@
       data.schedule.push(timeHorizon);
     }
   }
+
+  /**
+    * import Google Calendar check free/busy
+   */
+  function calendarAuthenticate() {
+    return gapi.auth2.getAuthInstance()
+      .signIn({ scope: "https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.readonly" })
+      .then(function () { console.log("Sign-in successful"); },
+        function (err) { console.error("Error signing in", err); });
+  }
+
+  function loadClient() {
+    gapi.client.setApiKey("AIzaSyDiIkrELAExlayhNVh5ncRXu74HQ8LLOTU");
+    return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/calendar/v3/rest")
+      .then(function () { console.log("GAPI client loaded for API"); },
+        function (err) { console.error("Error loading GAPI client for API", err); });
+  }
+
+  function execute() {
+    return gapi.client.calendar.calendarList.list({
+      "minAccessRole": "freeBusyReader"
+    }).then(function (response) {
+      // Handle the results here (response.result has the parsed body).
+      data.gCals = response.result.items.map(x => {
+        /** @type {GoogleCalendar} */
+        let cal = { id: x.id, summary: x.summary, desc: x.description }
+        return cal
+      })
+      console.log(data.gCals);
+    }, function (err) { console.error("Execute error", err); });
+  }
+
 
   function parseWeatherInfo(js) {
     /** @type {{[key:number]:Weather}} */
@@ -519,6 +569,9 @@
       data.submitted = !data.submitted;
       console.log('You clicked Submit!');
 
+    },
+    importCalendar() {
+      calendarAuthenticate().then(loadClient).then(execute);
     }
   }
 
@@ -532,6 +585,10 @@
         genCell()
       }
     })
+
+    gapi.load("client:auth2", function () {
+      gapi.auth2.init({ client_id: "872193871992-fkab6ha6b5r7c0a1415ftlctn588r4nt.apps.googleusercontent.com" });
+    });
 
 
     // For testing purpose; saves api call count
