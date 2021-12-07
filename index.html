@@ -52,7 +52,7 @@
 
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" style='background-color:#001d64'>
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
           <img src="assets/logo.png" class="d-inline-block" style='object-fit:cover;width:8em;height:30px' alt="">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -78,7 +78,9 @@
         </div>
       </div>
       <div data-aos="fade-up">
-        <a id="header-btn" href="schedule.html" class="btn btn-outline-light">Schedule Now</a>
+        <a href="schedule.html" class="btn btn-outline-light" style="width:150px">Schedule Time</a>
+        <a href="places.html" class="btn btn-outline-light"  style="width:150px">Schedule Place</a>
+        <a href="help.html" class="btn btn-outline-light"  style="width:150px">Get Help</a>
       </div>
     </div>
 
@@ -91,7 +93,7 @@
 
   const data = {
     /** @type {([string,string|null])[]} */
-    navBarTextsBadges: [['Home', 'index.html'], ['Schedule', 'schedule.html'], ['Places', 'places.html'], ['Help', 'help.html'],],
+    navBarTextsBadges: [['Home', 'index.html'], ['Schedule', 'schedule.html'], ['Place', 'places.html'], ['Help', 'help.html'],],
     navBarSelected: 0,
   }
   document.addEventListener('DOMContentLoaded', _ => {

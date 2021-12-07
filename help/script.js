@@ -1,18 +1,29 @@
 var slideIndex = 1;
 showSlides(slideIndex);
 
-// Next/previous controls
+
+/**
+ * Next/previous controls
+ * @param {number} n 
+ */
 function plusSlides(n) {
   console.log("plusSlides",n)
   showSlides(slideIndex += n);
 }
 
-// Thumbnail image controls
+/**
+ * Thumbnail image controls
+ * @param {number} n 
+ */
 function currentSlide(n) {
   console.log("currentSlide",n)
   showSlides(slideIndex = n);
 }
 
+/**
+ * 
+ * @param {number} n 
+ */
 function showSlides(n) {
   console.log("showSlides",n)
   var i;

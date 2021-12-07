@@ -2,20 +2,6 @@
 <html lang="en-US">
 
 <head>
-<<<<<<< HEAD
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link href='https://fonts.googleapis.com/css?family=Josefin Sans' rel='stylesheet'>
-
-    <link href="style.css" rel="stylesheet">
-
-    <script defer src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <!-- <script defer src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script> -->
-    <!-- <script defer src="https://cdn.jsdelivr.net/npm/axios@0/dist/axios.min.js"></script> -->
-    <script defer src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.slim.min.js"></script>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.min.js"></script>
-=======
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
   <link href="style.css" rel="stylesheet">
@@ -27,15 +13,14 @@
   <!-- <script defer src="https://cdn.jsdelivr.net/npm/axios@0/dist/axios.min.js"></script> -->
   <script defer src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.slim.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.min.js"></script>
->>>>>>> 5d12d88f23c715051a559bcb856c4f6a00aa879d
 </head>
 
 <body>
-  <div id='app'>
+  <div id='app' style='margin-bottom:3em;'>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark"
       style='background-color:#001d64;font-family: "Josefin Sans";'>
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
           <img src="assets/logo.png" class="d-inline-block" style='object-fit:cover;width:8em;height:30px' alt="">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -53,84 +38,10 @@
         </div>
       </div>
     </nav>
-<<<<<<< HEAD
-  <div class="container">
-    <div class="row align-items-end d-flex justify-content-center">
-      <div class="col-11">
-        <div class="table-responsive d-flex justify-content-start">
-          <table class="table table-bordered text-center" style="width:80%">
-            <thead>
-              <tr class="bg-light-gray">
-                <th class="text-uppercase">Time</th>
-                <th class="text-uppercase">{{dateArray[0]}}</th>
-                <th class="text-uppercase">{{dateArray[1]}}</th>
-                <th class="text-uppercase">{{dateArray[2]}}</th>
-                <th class="text-uppercase">{{dateArray[3]}}</th>
-                <th class="text-uppercase">{{dateArray[4]}}</th>
-                <th class="text-uppercase">{{dateArray[5]}}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="align-middle">8-10am</td>
-                <td width="14%" v-for="state,dayIdx of schedule[0]">
-                  <button type="button" :class="free_class" style="width:100%"
-                    v-on:click="clickCell(dayIdx,0,$event)">Free</button>
-                </td>
-              </tr>
-
-              <tr>
-                <td class="align-middle">10-12pm</td>
-                <td width="14%" v-for="state,dayIdx of schedule[1]">
-                  <button type="button" :class="free_class" style="width:100%"
-                    v-on:click="clickCell(dayIdx,1,$event)">Free</button>
-                </td>
-              </tr>
-
-              <tr>
-                <td class="align-middle">12-2pm</td>
-                <td width="14%" v-for="state,dayIdx of schedule[2]">
-                  <button type="button" :class="free_class" style="width:100%"
-                    v-on:click="clickCell(dayIdx,2,$event)">Free</button>
-                </td>
-              </tr>
-
-              <tr>
-                <td class="align-middle">2-4pm</td>
-                <td width="14%" v-for="state,dayIdx of schedule[3]">
-                  <button type="button" :class="free_class" style="width:100%"
-                    v-on:click="clickCell(dayIdx,3,$event)">Free</button>
-                </td>
-              </tr>
-
-              <tr>
-                <td class="align-middle">4-6pm</td>
-                <td width="14%" v-for="state,dayIdx of schedule[4]">
-                  <button type="button" :class="free_class" style="width:100%"
-                    v-on:click="clickCell(dayIdx,4,$event)">Free</button>
-                </td>
-              </tr>
-              <tr>
-                <td class="align-middle">6-8pm</td>
-                <td width="14%" v-for="state,dayIdx of schedule[5]">
-                  <button type="button" :class="free_class" style="width:100%"
-                    v-on:click="clickCell(dayIdx,5,$event)">Free</button>
-                </td>
-              </tr>
-              <tr>
-                <td class="align-middle">8-10pm</td>
-                <td width="14%" v-for="state,dayIdx of schedule[6]">
-                  <button type="button" :class="free_class" style="width:100%"
-                    v-on:click="clickCell(dayIdx,6,$event)">Free</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-=======
 
     <div class="container">
-      <div class="row align-items-end d-flex justify-content-center">
-        <div class="col-11">
+      <div class="row align-items-center d-flex justify-content-center">
+        <div class="col-10">
           <div class="table-responsive d-flex justify-content-start">
             <table class="table table-bordered text-center">
 
@@ -145,21 +56,64 @@
                 <tr v-for='sch,schIdx of schedule'>
                   <td class="align-middle">{{`${8+2*schIdx}:00-${10+2*schIdx}:00`}}</td>
                   <td width="14%" v-for="cell,dayIdx of sch">
-                    <button type="button" :class="cell.state == AVAILABLE?free_class:busy_class" style="width:100%"
-                      v-on:click="!submitted?clickCell(cell):clickCellAfterSubmit(dayIdx,schIdx,$event)"
-                      >{{!submitted?(cell.state==AVAILABLE?"Free":"Busy"):"TODO"}}</button>
+                    <button type="button" :class="btnStyle(cell)" style="width:100%"
+                      @click="!submitted?clickCell(cell):clickCellAfterSubmit(cell)">
+                      {{!submitted?(cell.state==AVAILABLE?"Free":"Busy"):cell.weather?.brief||'N/A'}}</button>
                   </td>
                 </tr>
               </tbody>
 
             </table>
           </div>
->>>>>>> 5d12d88f23c715051a559bcb856c4f6a00aa879d
+
+
+        </div>
+        <div class="col" v-if="submitted" style="margin:20px 0">
+          <div id="legend_highly_recommend" class='d-flex align-items-center justify-content-center'>Strongly
+            Recommended</div>
+          <div id="legend_recommend" class='d-flex align-items-center justify-content-center'>Recommended</div>
+          <div id="legend_not_recommend" class='d-flex align-items-center justify-content-center'>Not Recommended</div>
+          <div id="legend_highly_not_recommend" class='d-flex align-items-center justify-content-center'>Strongly not
+            Recommended</div>
+          <div id="legend_not_available" class='d-flex align-items-center justify-content-center'>Busy</div>
         </div>
       </div>
 
       <div class="col d-flex justify-content-center">
-        <button @click='doSchedule' class="btn btn-outline-success" style="margin-bottom:20px;width:10em">{{submitted?"Back":"Submit"}}</button>
+        <button @click='doSchedule' class="btn btn-outline-success"
+          style="margin-bottom:20px;width:10em">{{submitted?"Back":"Submit"}}</button>
+        <a v-if="submitted" href="places.html" class="btn btn-outline-success"  style="margin-bottom:20px;width:10em;margin-left:2em">Schedule Place</a>  
+        </div>
+    </div>
+
+    <div class="container d-flex justify-content-center " v-if="submitted">
+      <div class="card">
+        <div class="card-body">
+
+          <div v-if="selectedDateWeather!=null">
+            <img :src="weatherIcon" alt="Weather Icon" width="50" height="50">
+            <p><span style="font-weight: bold;">Date:</span> {{
+              `${selectedCell?.dateTime.getFullYear()}-${selectedCell?.dateTime.getMonth()}-${selectedCell?.dateTime.getDay()}`
+              }}</p>
+            <p><span style="font-weight: bold;">Weather:</span> {{JSON.stringify(selectedDateWeather.brief)}}</p>
+            <p> <span style="font-weight: bold;">AQI (PM 2.5): </span>{{ getAirQualityDesc(selectedCell?.aqi?.avgPM25)
+              }}</p>
+            <p> <span style="font-weight: bold;">Temperature (°F): </span>{{JSON.stringify(selectedDateWeather.tempF)}}
+            </p>
+            <p> <span style="font-weight: bold;">Wind Speed (mph):
+              </span>{{JSON.stringify(selectedDateWeather.windSpd)}}</p>
+            <p> <span style="font-weight: bold;">Wind Direction: </span>{{JSON.stringify(selectedDateWeather.windDir)}}
+            </p>
+            <p> <span style="font-weight: bold;">Description: </span>{{JSON.stringify(selectedDateWeather.desc)}}</p>
+            <p v-if='isToday(selectedCell?.dateTime)' class='d-flex justify-content-center'><a type="button"
+                class='btn btn-outline-primary' href='/places.html'>Show me suggested places</a></p>
+          </div>
+
+          <div v-else>
+            <p style="font-weight:bold;text-align: center;">Click on a cell to show more Weather info!</p>
+          </div>
+
+        </div>
       </div>
     </div>
 
@@ -183,13 +137,6 @@
 
 <script> // @ts-check
   "use strict"
-<<<<<<< HEAD
-  const State = Object.freeze({
-    AVAILABLE: 1, // USER DIDN'T CHOOSE IT AS BUSY AND GOOD WEATHER
-    BUSY: 2, // USER CHOOSE IT AS BUSY
-    UNAVAILABLE: 3, // BAD WEATHER
-  })
-=======
 
   // USER DIDN'T CHOOSE IT AS BUSY AND GOOD WEATHER
   const AVAILABLE = 'AVAILABLE'
@@ -197,7 +144,6 @@
   const BUSY = 'BUSY'
   // BAD WEATHER
   const UNAVAILABLE = 'UNAVAILABLE'
->>>>>>> 5d12d88f23c715051a559bcb856c4f6a00aa879d
 
   const SUNNY = 'SUNNY'
   const CLOUDY = 'CLOUDY'
@@ -227,18 +173,31 @@
   const todayDateBase = new Date()
   todayDateBase.setHours(0, 0, 0, 0)
 
+  const busy_class = "btn btn-warning"
+  // free_class: 'bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13',
+  // free_class: 'btn btn-success',
+  const free_class = "btn btn-success"
+
+  const free_sunny_class = "btn sunny"
+  const free_cloudy_class = "btn cloudy"
+  const free_rainy_class = "btn rainy"
+  const free_snowy_class = "btn snowy"
+
+  const highly_recommend = "btn highly_recommend"
+  const recommend = "btn recommend"
+  const not_recommend = "btn not_recommend"
+  const highly_not_recommend = "btn highly_not_recommend"
+  const busy_class_submited = "btn btn-light"
+
+
   const data = {
     AVAILABLE,
     BUSY,
     UNAVAILABLE,
     /** @type {Date} */
     todayDateBase,
-    busy_class: "btn btn-warning",
-    // free_class: 'bg-green padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16  xs-font-size13',
-    // free_class: 'btn btn-success',
-    free_class: "btn btn-success",
 
-    navBarTextsBadges: [['Home', 'index.html'], ['Schedule', 'schedule.html'], ['Places', 'places.html'], ['Help', 'help.html'],],
+    navBarTextsBadges: [['Home', 'index.html'], ['Schedule', 'schedule.html'], ['Place', 'places.html'], ['Help', 'help.html'],],
     navBarSelected: 1,
 
     dateArray: ["", "", "", "", "", ""],
@@ -254,11 +213,8 @@
     //   [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
     //   [State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE, State.AVAILABLE],
     // ],
-<<<<<<< HEAD
-=======
 
     /** @type {CellInfo[][]} */
->>>>>>> 5d12d88f23c715051a559bcb856c4f6a00aa879d
     schedule: [],
 
     avaliableTimeArray: [],
@@ -277,9 +233,18 @@
 
     /** @type {{[key:number]:AirQuality}} */
     airQualityInfo: null,
-    
+
     /** @type {Boolean} */
     submitted: false,
+
+    /** @type {Weather?} */
+    selectedDateWeather: null,
+
+    /** @type {CellInfo?} */
+    selectedCell: null,
+
+    /** @type {String} */
+    weatherIcon: null,
 
   }
 
@@ -350,9 +315,9 @@
     let weather = {}
     js.properties.periods.forEach(x => {
       /** @type {string} */
-      let descLC = x.shortForecast.toLowerCase()
+      let descLC = x.shortForecast.toUpperCase()
       weather[new Date(x.startTime).getTime()] = {
-        brief: descLC.includes(SUNNY) ? SUNNY : (descLC.includes(RAINY) ? RAINY : (descLC.includes(SNOWY) ? SNOWY : CLOUDY)),
+        brief: descLC.includes(SUNNY) ? SUNNY : (descLC.includes('RAIN') ? RAINY : (descLC.includes('SNOW') ? SNOWY : CLOUDY)),
         tempF: x.temperature,
         windSpd: x.windSpeed,
         windDir: x.windDirection,
@@ -385,22 +350,82 @@
 
   const methods = {
     /**
+     * @param {number} pm25
+     */
+    getAirQualityDesc(pm25) {
+      if (pm25 == null) return 'No Data'
+      else if (pm25 > 250.5) return pm25 + 'μg/m3 (Harzardous)'
+      else if (pm25 > 150.5) return pm25 + 'μg/m3 (Very Unhealthy)'
+      else if (pm25 > 55.5) return pm25 + 'μg/m3 (Unhealthy)'
+      else if (pm25 > 35.5) return pm25 + 'μg/m3 (Unhealthy for the Sensitive)'
+      else if (pm25 > 12.1) return pm25 + 'μg/m3 (Moderate)'
+      else if (pm25 > 0) return pm25 + 'μg/m3 (Excellent)'
+      else return 'Not Available'
+    },
+    /**
+     * @param {Date} date
+     */
+    isToday(date) {
+      date = new Date(date)
+      date.setHours(0, 0, 0, 0)
+      return date.getTime() == data.todayDateBase.getTime()
+    },
+    /**
+     * @param {CellInfo} cell
+     */
+    btnStyle(cell) {
+      if (!data.submitted)
+        return cell.state == AVAILABLE ? free_class : busy_class
+
+      if (cell.state == AVAILABLE) {
+        if (cell.weather == null) {
+          return busy_class_submited
+        }
+        if (cell.weather.brief == SUNNY) {
+          if (cell.weather.tempF > 35)
+            return highly_recommend
+          else
+            return recommend
+        }
+        else if (cell.weather.brief == CLOUDY) {
+          if (cell.weather.tempF > 38)
+            return highly_recommend
+          if (cell.weather.tempF > 30)
+            return recommend
+          else {
+            return not_recommend
+          }
+        }
+        else if (cell.weather.brief == RAINY || cell.weather.brief == SNOWY) {
+          return highly_not_recommend
+        }
+      }
+      return busy_class_submited
+    },
+    /**
      * onclick handler when user clicks a time cell
      * modify data.schedule
      *
      * @param {CellInfo} cell
      */
     clickCell: function (cell) {
-      cell.state = cell.state==AVAILABLE?BUSY:AVAILABLE
+      cell.state = cell.state == AVAILABLE ? BUSY : AVAILABLE
     },
-     /**
-     * onclick handler when user clicks a time cell after submit
-     * modify data.schedule
-     *
-     * @param {PointerEvent} e
-     */
-    clickCellAfterSubmit: function (day, time,e) {
+    /**
+    * onclick handler when user clicks a time cell after submit
+    * modify data.schedule
+    *
+    * @param {CellInfo} cell
+    */
+    clickCellAfterSubmit: function (cell) {
       console.log('clickCellAfterSubmit');
+      console.log(cell);
+
+      data.selectedDateWeather = cell.weather
+      data.selectedCell = cell
+
+      if (data.selectedDateWeather != null)
+        data.weatherIcon = "assets/" + data.selectedDateWeather.brief + ".png";
       // let clickedElement = e.target;
       // $(clickedElement).text("");
 
@@ -490,6 +515,7 @@
       })
     },
     doSchedule() {
+      methods.getWeatherAQI();
       data.submitted = !data.submitted;
       console.log('You clicked Submit!');
 
