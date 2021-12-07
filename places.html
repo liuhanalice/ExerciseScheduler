@@ -21,7 +21,7 @@
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark"
       style='background-color:#001d64;font-family: "Josefin Sans";'>
       <div class="container-fluid">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="index.html">
           <img src="assets/logo.png" class="d-inline-block" style='object-fit:cover;width:8em;height:30px' alt="">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -50,7 +50,7 @@
     {{weatherJson}} -->
     <span style='margin-top:100px'>Getting recommended places to workout...<br><br></span>
 
-    <div v-if="weatherJson?.daily[0].weather[0]['main'] == 'Snow' || weatherJson?.daily[0].weather[0]['main'] == 'Rain' 
+    <div v-if="weatherJson?.daily[0].weather[0]['main'] == 'Snow' || weatherJson?.daily[0].weather[0]['main'] == 'Rain'
               || weatherJson?.daily[0].weather[0]['main'] == 'Cloudy' " style="text-align: center;width:100%;height:94vh;">
        <iframe v-if="position "
         width="100%"
@@ -105,7 +105,7 @@
 
                // weather
               url = new URL('https://api.openweathermap.org/data/2.5/onecall?lat=' + coords.latitude + '&lon=' + coords.longitude + '&exclude=minutely,hourly,current&appid=4a52430807e5bccd7225dd912578a902')
-           
+
               fetch(url.toString()).then(r => r.json()
               ).then(js => {
                 console.log(js)
