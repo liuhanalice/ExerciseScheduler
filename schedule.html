@@ -113,14 +113,51 @@
             <p> <span style="font-weight: bold;">Wind Direction: </span>{{JSON.stringify(selectedDateWeather.windDir)}}
             </p>
             <p> <span style="font-weight: bold;">Description: </span>{{JSON.stringify(selectedDateWeather.desc)}}</p>
-            <p v-if='isToday(selectedCell?.dateTime)' class='d-flex justify-content-center'><a type="button"
-                class='btn btn-outline-primary' href='/places.html'>Show me suggested places</a></p>
+            <p class='d-flex justify-content-center'>
+              <button class='btn btn-outline-primary' data-bs-toggle="modal" data-bs-target="#calModal">Add to
+                Calendar</button>
+            </p>
           </div>
 
           <div v-else>
             <p style="font-weight:bold;text-align: center;">Click on a cell to show more Weather info!</p>
           </div>
 
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="calModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Choose Calendar</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id='calModalBody'>
+            <div v-if='gCals!=null&&gCals.length>0'>
+              <div v-for="cal,idx of gCals" :key='cal.id' class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" :id="cal.id" :checked='idx==0'>
+                <label class="form-check-label" :for="cal.id">
+                  {{cal.desc||cal.summary}}
+                </label>
+              </div>
+            </div>
+            <div v-else>
+              No Google Calendar found! Did you import them?
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button id='calModalCloseBtn' type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button v-if='gCals!=null&&gCals.length>0' @click='addToGCal' type="button" class="btn btn-primary"
+              :disabled='addingToGcal'>
+              <span v-if='addingToGcal' class="spinner-border spinner-border-sm" role="status"
+                aria-hidden="true"></span>
+              Save to GCal
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -182,7 +219,7 @@
    * @typedef {{
    * id:string,
    * summary:string,
-   * desc:string
+   * desc:string?
    * }} GoogleCalendar
    */
 
@@ -264,6 +301,8 @@
 
     /** @type {GoogleCalendar[]?} */
     gCals: null,
+
+    addingToGcal: false
   }
 
   let getWeatherApiKey = () => fetch('key-weather.txt').then(r => r.text()).then(r => r.trim())
@@ -333,7 +372,7 @@
    */
   function calendarAuthenticate() {
     return gapi.auth2.getAuthInstance()
-      .signIn({ scope: "https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.readonly" })
+      .signIn({ scope: "https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.events" })
       .then(function () { console.log("Sign-in successful"); },
         function (err) { console.error("Error signing in", err); });
   }
@@ -347,7 +386,7 @@
 
   function execute() {
     return gapi.client.calendar.calendarList.list({
-      "minAccessRole": "freeBusyReader"
+      "minAccessRole": "writer"
     }).then(function (response) {
       // Handle the results here (response.result has the parsed body).
       data.gCals = response.result.items.map(x => {
@@ -615,9 +654,42 @@
     },
     importCalendar() {
       calendarAuthenticate().then(loadClient).then(execute).then(getFreeBusy);
+    },
+    addToGCal() {
+      data.addingToGcal = true
+
+      let calendarId = [...calModalBody.querySelectorAll("input")].filter(x => x.checked)[0].id
+
+      let endDT = new Date(data.selectedCell.dateTime);
+      addHours(endDT, 2);
+
+      return gapi.client.calendar.events.insert({
+        calendarId,
+        "resource": {
+          "end": {
+            "dateTime": endDT.toISOString(),
+            "timeZone": Intl.DateTimeFormat().resolvedOptions().timeZone,
+          },
+          "start": {
+            "dateTime": data.selectedCell.dateTime.toISOString(),
+            "timeZone": Intl.DateTimeFormat().resolvedOptions().timeZone,
+          },
+          summary: 'Exercise Now!',
+          description: "Exercise scheduled by OutScheduler",
+        }
+      }).then(function (response) {
+        // Handle the results here (response.result has the parsed body).
+        console.log("Response", response.result);
+        calModalCloseBtn.click()
+        data.addingToGcal = false
+        Promise.resolve(execute()).then(getFreeBusy)
+
+      }, function (err) {
+        console.error("Execute error", err);
+        data.addingToGcal = false
+      });
     }
   }
-
   document.addEventListener('DOMContentLoaded', _ => {
     let vapp = new Vue({
       el: '#app',
