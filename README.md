@@ -1,5 +1,5 @@
-# ExerciseScheduler
-This is an outdoor exercises planning tool (web page) based on user's schedule and weather forecast.  
+# ExScheduler
+ExScheduler is an outdoor exercises planning website based on user's schedule and weather forecast.  
 ## Preview
 <img src="assets/p_1.png"/>  
 <img src="assets/p_2.png"/>  
