@@ -1,5 +1,5 @@
 # ExScheduler
-ExScheduler is an outdoor exercises planning website based on user's schedule and weather forecast.  
+ExScheduler is an outdoor exercises planning website based on user's schedule, weather forecast and geo data
 ## Preview
 <img src="assets/p_1.png"/>  
 <img src="assets/p_2.png"/>  
